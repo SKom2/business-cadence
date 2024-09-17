@@ -3,7 +3,6 @@ import {
   memo,
   useCallback,
   useLayoutEffect,
-  useMemo,
   useRef,
   useState,
 } from "react";
@@ -11,7 +10,9 @@ import Draggable, { DraggableData, DraggableEvent } from "react-draggable";
 import { months } from "../../months.ts";
 import { dragWidth } from "../../constants.ts";
 
-const days = Array.from({ length: 365 }, (_, i) => i);
+const days = months.reduce((acc, item) => {
+  return acc + item.days;
+}, 0);
 
 const DragHandle = forwardRef<HTMLButtonElement>(function (props, ref) {
   return (
@@ -57,30 +58,69 @@ const DatePickerComponent = () => {
   const [leftPosition, setLeftPosition] = useState({ x: 0, y: 0 });
   const [rightPosition, setRightPosition] = useState({ x: 0, y: 0 });
 
-  const monthWidth = useMemo(
-    () => Math.round(containerWidth / months.length),
-    [containerWidth, months],
-  );
+  // const monthWidth = useMemo(
+  //   () => Math.round(containerWidth / months.length),
+  //   [containerWidth, months],
+  // );
 
-  const startMonth = useMemo(
-    () => Math.floor(leftPosition.x / monthWidth),
-    [leftPosition, monthWidth],
-  );
+  // const startMonth = useMemo(
+  //   () => Math.floor(leftPosition.x / monthWidth),
+  //   [leftPosition, monthWidth],
+  // );
+  //
+  // const endMonth = useMemo(
+  //   () => Math.ceil(rightPosition.x / monthWidth),
+  //   [rightPosition, monthWidth],
+  // );
 
-  const endMonth = useMemo(
-    () => Math.ceil(rightPosition.x / monthWidth),
-    [rightPosition, monthWidth],
-  );
+  const oneDay = containerWidth / days;
+
+  const left = leftPosition.x;
+  const leftDay = Math.round(left / oneDay);
+
+  const right = rightPosition.x;
+  const rightDay = Math.round(right / oneDay);
+
+  const startMonthName = months.reduce<{
+    totalDays: number;
+    found: null | string;
+  }>(
+    (acc, month) => {
+      if (!acc.found && leftDay < acc.totalDays + month.days) {
+        acc.found = month.name;
+      }
+      acc.totalDays += month.days;
+      return acc;
+    },
+    { totalDays: 0, found: null },
+  ).found;
+
+  const endMonthName = months.reduce<{
+    totalDays: number;
+    found: null | string;
+  }>(
+    (acc, month) => {
+      if (!acc.found && rightDay <= acc.totalDays + month.days) {
+        acc.found = month.name;
+      }
+      acc.totalDays += month.days;
+      return acc;
+    },
+    { totalDays: 0, found: null },
+  ).found;
+
+  const startMonth = months.findIndex((month) => month.name === startMonthName);
+  const endMonth = months.findIndex((month) => month.name === endMonthName) + 1;
 
   const handleDragLeft = useCallback(
     (_: DraggableEvent, data: DraggableData) => {
       setLeftPosition((value) => ({ ...value, x: data.x }));
       setRightBound((value) => ({
         ...value,
-        left: data.x + monthWidth,
+        left: data.x + dragWidth,
       }));
     },
-    [monthWidth],
+    [dragWidth],
   );
 
   const handleDragRight = useCallback(
@@ -88,23 +128,22 @@ const DatePickerComponent = () => {
       setRightPosition((value) => ({ ...value, x: data.x }));
       setLeftBound((value) => ({
         ...value,
-        right: data.x - monthWidth,
+        right: data.x - dragWidth,
       }));
     },
-    [monthWidth],
+    [dragWidth],
   );
 
   useLayoutEffect(() => {
     if (ref.current) {
       const width = ref.current.getBoundingClientRect().width;
-      const monthWidth = Math.round(width / months.length);
 
       setLeftBound({
         left: dragWidth / 2,
-        right: width - dragWidth / 2 - monthWidth,
+        right: width - dragWidth / 2 - dragWidth,
       });
       setRightBound({
-        left: dragWidth / 2 + monthWidth,
+        left: dragWidth / 2 + dragWidth,
         right: width - dragWidth / 2,
       });
 
@@ -129,7 +168,7 @@ const DatePickerComponent = () => {
           bounds={leftBound}
           position={leftPosition}
           onDrag={handleDragLeft}
-          grid={[containerWidth / days.length, 0]}
+          grid={[containerWidth / days, 0]}
         >
           <DragHandle ref={leftDragRef} />
         </Draggable>
@@ -137,20 +176,26 @@ const DatePickerComponent = () => {
         <div className={"flex grow border-b border-[#828282]"}>
           {months.map((month, index) => (
             <div
-              key={month}
-              className={"flex-1 border-r border-[#828282] last:border-r-0 p-1"}
+              key={month.name}
+              className={"flex-1 flex flex-col"}
+              style={{ flexGrow: month.days }}
             >
-              <div className={"text-[8px] font-bold text-gray-500"}>
-                {index + 1}
+              <div className={"border-b border-[#828282] border-r p-1"}>
+                <div className={"text-[8px] font-bold text-gray-500"}>
+                  {index + 1}
+                </div>
+                <div className={"text-sm"}>{month.name}</div>
               </div>
-              <div className={"text-sm"}>{month}</div>
-            </div>
-          ))}
-        </div>
 
-        <div className={"flex grow h-6 border-b border-[#828282]"}>
-          {days.map((day) => (
-            <div key={day} className={"flex-1 border-r border-[#828282]"} />
+              <div className={"flex grow h-6"}>
+                {Array.from({ length: month.days }, (_, i) => i).map((day) => (
+                  <div
+                    key={day}
+                    className={"flex-1  border-r border-[#828282]"}
+                  />
+                ))}
+              </div>
+            </div>
           ))}
         </div>
 
@@ -160,6 +205,7 @@ const DatePickerComponent = () => {
           bounds={rightBound}
           position={rightPosition}
           onDrag={handleDragRight}
+          grid={[containerWidth / days, 0]}
         >
           <DragHandle ref={rightDragRef} />
         </Draggable>
@@ -173,12 +219,11 @@ const DatePickerComponent = () => {
       <div className={"flex grow h-14"}>
         {months.slice(startMonth, endMonth).map((month) => (
           <div
-            key={month}
-            className={
-              "flex flex-1 border-r border-[#828282] last:border-r-0 p-1"
-            }
+            key={month.name}
+            className={"flex flex-1 border-r border-[#828282] p-1"}
+            style={{ flexGrow: month.days }}
           >
-            <div className={"self-end text-[10px]"}>{month}</div>
+            <div className={"self-end text-[10px]"}>{month.name}</div>
           </div>
         ))}
       </div>
