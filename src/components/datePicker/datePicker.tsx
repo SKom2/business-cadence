@@ -8,7 +8,6 @@ import {
 } from "react";
 import Draggable, { DraggableData, DraggableEvent } from "react-draggable";
 import { months } from "../../months.ts";
-import { dragWidth } from "../../constants.ts";
 
 const days = months.reduce((acc, item) => {
   return acc + item.days;
@@ -17,10 +16,11 @@ const days = months.reduce((acc, item) => {
 interface Props {
   isDragging: boolean;
   day?: number;
+  dragWidth: number;
 }
 
 const DragHandle = forwardRef<HTMLButtonElement, Props>(function (props, ref) {
-  const { isDragging, day, ...restProps } = props;
+  const { isDragging, day, dragWidth, ...restProps } = props;
 
   return (
     <button
@@ -51,7 +51,7 @@ const DragHandle = forwardRef<HTMLButtonElement, Props>(function (props, ref) {
       {isDragging && (
         <div
           className={
-            "absolute bottom-0 translate-y-full -translate-x-1/2 bg-white border rounded text-sm px-0.5"
+            "absolute bottom-[2px] opacity-80 -translate-x-1/2 bg-white border rounded text-sm px-0.5"
           }
         >
           {day}
@@ -133,6 +133,8 @@ const DatePickerComponent = () => {
     (month) => month.name === endMonthData?.name,
   );
 
+  const dragWidth = oneDay;
+
   const handleDragLeft = useCallback(
     (_: DraggableEvent, data: DraggableData) => {
       setIsLeftDragging(true);
@@ -142,7 +144,7 @@ const DatePickerComponent = () => {
         left: data.x + dragWidth,
       }));
     },
-    [],
+    [dragWidth],
   );
 
   const handleDragRight = useCallback(
@@ -154,7 +156,7 @@ const DatePickerComponent = () => {
         right: data.x - dragWidth,
       }));
     },
-    [],
+    [dragWidth],
   );
 
   const handleStopLeft = () => {
@@ -170,20 +172,20 @@ const DatePickerComponent = () => {
       const width = ref.current.getBoundingClientRect().width;
 
       setLeftBound({
-        left: dragWidth / 2,
-        right: width - dragWidth / 2 - dragWidth,
+        left: dragWidth,
+        right: width - dragWidth - dragWidth,
       });
       setRightBound({
-        left: dragWidth / 2 + dragWidth,
-        right: width - dragWidth / 2,
+        left: dragWidth + dragWidth,
+        right: width - dragWidth,
       });
 
-      setLeftPosition((value) => ({ ...value, x: dragWidth / 2 }));
-      setRightPosition((value) => ({ ...value, x: width - dragWidth / 2 }));
+      setLeftPosition((value) => ({ ...value, x: dragWidth }));
+      setRightPosition((value) => ({ ...value, x: width - dragWidth }));
 
       setContainerWidth(width);
     }
-  }, []);
+  }, [dragWidth]);
 
   function getWeeksBetweenDates(
     startDate: number,
@@ -241,6 +243,7 @@ const DatePickerComponent = () => {
             ref={leftDragRef}
             isDragging={isLeftDragging}
             day={(startMonthData?.dayOfMonth ?? 0) + 1}
+            dragWidth={dragWidth}
           />
         </Draggable>
 
@@ -284,6 +287,7 @@ const DatePickerComponent = () => {
             ref={rightDragRef}
             isDragging={isRightDragging}
             day={(endMonthData?.dayOfMonth ?? 0) + 1}
+            dragWidth={dragWidth}
           />
         </Draggable>
 
@@ -307,6 +311,23 @@ const DatePickerComponent = () => {
 
       <div className={"flex h-6"}>
         {getWeeksBetweenDates(leftDay, rightDay).map((week, index, array) => {
+          if (array.length === 1) {
+            const start = getDayAndMonth(leftDay);
+            const end = getDayAndMonth(rightDay);
+
+            return (
+              <div
+                key={`${leftDay}${rightDay}`}
+                className={
+                  "flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r"
+                }
+              >
+                {start === end && start}
+                {start !== end && `${start}-${end}`}
+              </div>
+            );
+          }
+
           if (index === 0) {
             const start = getDayAndMonth(leftDay);
             const end = getDayAndMonth(week.end);
