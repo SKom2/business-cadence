@@ -1,5 +1,5 @@
 export const months = [
-  { name: "January", days: 31 },
+  { name: "January", days: 32 },
   { name: "February", days: 29 },
   { name: "March", days: 31 },
   { name: "April", days: 30 },
