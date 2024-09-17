@@ -185,6 +185,40 @@ const DatePickerComponent = () => {
     }
   }, []);
 
+  function getWeeksBetweenDates(
+    startDate: number,
+    endDate: number,
+  ): { start: number; end: number }[] {
+    const weeks: { start: number; end: number }[] = [];
+
+    for (let i = 0; i < 366; i += 7) {
+      const start = i + 1;
+      const end = Math.min(i + 7, 366);
+      weeks.push({ start, end });
+    }
+
+    return weeks.filter(
+      (week) =>
+        (week.start >= startDate && week.start <= endDate) ||
+        (week.end >= startDate && week.end <= endDate) ||
+        (week.start <= startDate && week.end >= endDate),
+    );
+  }
+
+  function getDayAndMonth(dayOfYear: number) {
+    const daysInMonth = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+    let month = 0;
+    let day = dayOfYear;
+
+    while (day > daysInMonth[month]) {
+      day -= daysInMonth[month];
+      month++;
+    }
+
+    return day;
+  }
+
   return (
     <div className={"flex flex-col grow border-b border-[#828282]"}>
       <div className={"flex flex-col grow relative"} ref={ref}>
@@ -259,7 +293,7 @@ const DatePickerComponent = () => {
         />
       </div>
 
-      <div className={"flex grow h-14"}>
+      <div className={"flex grow h-14 border-b border-[#828282]"}>
         {months.slice(startMonth, endMonth + 1).map((month) => (
           <div
             key={month.name}
@@ -269,6 +303,55 @@ const DatePickerComponent = () => {
             <div className={"self-end text-[10px]"}>{month.name}</div>
           </div>
         ))}
+      </div>
+
+      <div className={"flex h-6"}>
+        {getWeeksBetweenDates(leftDay, rightDay).map((week, index, array) => {
+          if (index === 0) {
+            const start = getDayAndMonth(leftDay);
+            const end = getDayAndMonth(week.end);
+
+            return (
+              <div
+                key={`${leftDay}${week.end}`}
+                className={
+                  "flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r"
+                }
+              >
+                {start === end && start}
+                {start !== end && `${start}-${end}`}
+              </div>
+            );
+          }
+
+          if (index === array.length - 1) {
+            const start = getDayAndMonth(week.start);
+            const end = getDayAndMonth(rightDay);
+
+            return (
+              <div
+                key={`${week.start}${rightDay}`}
+                className={
+                  "flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r"
+                }
+              >
+                {start === end && start}
+                {start !== end && `${start}-${end}`}
+              </div>
+            );
+          }
+
+          return (
+            <div
+              key={`${week.start}${week.end}`}
+              className={
+                "flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r"
+              }
+            >
+              {getDayAndMonth(week.start)}-{getDayAndMonth(week.end)}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
