@@ -142,7 +142,7 @@ const DatePickerComponent = () => {
         left: data.x + dragWidth,
       }));
     },
-    [dragWidth],
+    [],
   );
 
   const handleDragRight = useCallback(
@@ -154,7 +154,7 @@ const DatePickerComponent = () => {
         right: data.x - dragWidth,
       }));
     },
-    [dragWidth],
+    [],
   );
 
   const handleStopLeft = () => {
