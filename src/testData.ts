@@ -1,3 +1,5 @@
+import { CalendarList } from "./services/redux/calendars/calendars.types.ts";
+
 export const testData = [
   {
     id: "1",
@@ -106,3 +108,63 @@ export const testData = [
     items: [],
   },
 ];
+
+
+export const testCalendarData: CalendarList = {
+  etag: '"p32sf3u7tj758g0o"',
+  items: [
+    {
+      kind: 'calendar#calendarListEntry',
+      etag: '"1726583372784000"',
+      id: 'en.cy#holiday@group.v.calendar.google.com',
+      summary: 'Holidays in Cyprus',
+      description: 'Holidays and Observances in Cyprus',
+      backgroundColor: '#16a765',
+      foregroundColor: '#000000',
+      colorId: '8',
+      selected: true,
+      timeZone: 'Asia/Nicosia',
+      accessRole: 'reader',
+      conferenceProperties: {
+        allowedConferenceSolutionTypes: ['video']
+      },
+      defaultReminders: [],
+    },
+    {
+      kind: 'calendar#calendarListEntry',
+      etag: '"1726583493599000"',
+      id: 'aleksandr.komolkin@jetbrains.com',
+      summary: 'aleksandr.komolkin@jetbrains.com',
+      description: '',
+      backgroundColor: '#f1c40f',
+      foregroundColor: '#1d1d1d',
+      colorId: '5',
+      selected: false,
+      timeZone: 'Asia/Nicosia',
+      accessRole: 'owner',
+      conferenceProperties: {
+        allowedConferenceSolutionTypes: []
+      },
+      defaultReminders: [],
+    },
+    {
+      kind: 'calendar#calendarListEntry',
+      etag: '"1726583638056000"',
+      id: 'addressbook#contacts@group.v.calendar.google.com',
+      summary: 'Birthdays',
+      description: 'Displays birthdays, anniversaries, and other event dates of people in Google Contacts.',
+      backgroundColor: '#3498db',
+      foregroundColor: '#ffffff',
+      colorId: '11',
+      selected: true,
+      timeZone: 'Asia/Nicosia',
+      accessRole: 'reader',
+      conferenceProperties: {
+        allowedConferenceSolutionTypes: []
+      },
+      defaultReminders: [],
+    }
+  ],
+  kind: 'calendar#calendarList',
+  nextSyncToken: 'CLjx-P2ZyogDEiBhbGVrc2FuZHIua29tb2xraW5AamV0YnJhaW5zLmNvbQ=='
+};
