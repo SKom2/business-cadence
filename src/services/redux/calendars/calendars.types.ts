@@ -26,23 +26,6 @@ export interface CalendarList {
   nextSyncToken: string;
 }
 
-// interface CalendarColor {
-//   background: string;
-//   foreground: string;
-// }
-//
-// interface EventColor {
-//   background: string;
-//   foreground: string;
-// }
-
-// interface ColorsResponse {
-//   calendar: Record<number, CalendarColor>;
-//   event: Record<number, EventColor>;
-//   kind: string;
-//   updated: string;
-// }
-
 export interface CalendarListResponse extends CalendarList {
   isLoading: boolean;
 }
