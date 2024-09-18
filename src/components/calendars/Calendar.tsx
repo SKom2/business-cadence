@@ -167,7 +167,12 @@ const Calendar: FC<{
                 style={today === leftDay ? { backgroundColor: "#E4DEFD" } : {}}
               >
                 {calendar.selected && (
-                  <>
+                  <div
+                    onMouseEnter={() =>
+                      onEventEnter(isEventStart || isEventEnd || isEvent)
+                    }
+                    onMouseLeave={onEventLeave}
+                  >
                     {isEventStart && !isEventEnd && (
                       <div
                         className={`absolute top-1 left-1 bottom-1 right-0 rounded-l-lg`}
@@ -230,7 +235,7 @@ const Calendar: FC<{
                         style={{ backgroundColor: isEvent.backgroundColor }}
                       />
                     )}
-                  </>
+                  </div>
                 )}
 
                 <div
@@ -269,7 +274,12 @@ const Calendar: FC<{
                 style={today === rightDay ? { backgroundColor: "#E4DEFD" } : {}}
               >
                 {calendar.selected && (
-                  <>
+                  <div
+                    onMouseEnter={() =>
+                      onEventEnter(isEventStart || isEventEnd || isEvent)
+                    }
+                    onMouseLeave={onEventLeave}
+                  >
                     {isEventStart && !isEventEnd && (
                       <div
                         className={`absolute top-1 left-1 bottom-1 right-0 rounded-l-lg`}
@@ -332,7 +342,7 @@ const Calendar: FC<{
                         style={{ backgroundColor: isEvent.backgroundColor }}
                       />
                     )}
-                  </>
+                  </div>
                 )}
 
                 <div
@@ -379,7 +389,12 @@ const Calendar: FC<{
                 }
               >
                 {calendar.selected && (
-                  <>
+                  <div
+                    onMouseEnter={() =>
+                      onEventEnter(isEventStart || isEventEnd || isEvent)
+                    }
+                    onMouseLeave={onEventLeave}
+                  >
                     {isEventStart && !isEventEnd && (
                       <div
                         className={`absolute top-1 left-1 bottom-1 right-0 rounded-l-lg`}
@@ -442,7 +457,7 @@ const Calendar: FC<{
                         style={{ backgroundColor: isEvent.backgroundColor }}
                       />
                     )}
-                  </>
+                  </div>
                 )}
 
                 <div
