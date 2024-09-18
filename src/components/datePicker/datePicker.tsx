@@ -203,7 +203,7 @@ const DatePickerComponent = forwardRef<HTMLDivElement, Props>(
                 key={index}
                 onMouseEnter={() => onMouseEnter(index)}
                 onMouseLeave={onMouseLeave}
-                className={`relative overflow-hidden flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${!isDragging && index === activeIndex ? "bg-[#E4DEFD]" : ""}`}
+                className={`relative overflow-hidden flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${!isDragging && index === activeIndex ? "bg-[#E4DEFD]" : "bg-white"}`}
               >
                 {hour}:00
               </div>
@@ -221,7 +221,7 @@ const DatePickerComponent = forwardRef<HTMLDivElement, Props>(
                 key={day}
                 onMouseEnter={() => onMouseEnter(index)}
                 onMouseLeave={onMouseLeave}
-                className={`relative overflow-hidden flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${!isDragging && index === activeIndex ? "bg-[#E4DEFD]" : ""}`}
+                className={`relative overflow-hidden flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${!isDragging && index === activeIndex ? "bg-[#E4DEFD]" : "bg-white"}`}
               >
                 <div className={"absolute"}>{getDayAndMonth(day)}</div>
               </div>
@@ -241,7 +241,7 @@ const DatePickerComponent = forwardRef<HTMLDivElement, Props>(
                     key={`${leftDay}${rightDay}`}
                     onMouseEnter={() => onMouseEnter(index)}
                     onMouseLeave={onMouseLeave}
-                    className={`whitespace-nowrap relative overflow-hidden flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${!isDragging && index === activeIndex ? "bg-[#E4DEFD]" : ""}`}
+                    className={`whitespace-nowrap relative overflow-hidden flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${!isDragging && index === activeIndex ? "bg-[#E4DEFD]" : "bg-white"}`}
                   >
                     <div className={"absolute"}>
                       {start === end && start}
@@ -260,7 +260,7 @@ const DatePickerComponent = forwardRef<HTMLDivElement, Props>(
                     key={`${leftDay}${week.end}`}
                     onMouseEnter={() => onMouseEnter(index)}
                     onMouseLeave={onMouseLeave}
-                    className={`whitespace-nowrap relative overflow-hidden flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${!isDragging && index === activeIndex ? "bg-[#E4DEFD]" : ""}`}
+                    className={`whitespace-nowrap relative overflow-hidden flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${!isDragging && index === activeIndex ? "bg-[#E4DEFD]" : "bg-white"}`}
                   >
                     <div className={"absolute"}>
                       {start === end && start}
@@ -279,7 +279,7 @@ const DatePickerComponent = forwardRef<HTMLDivElement, Props>(
                     key={`${week.start}${rightDay}`}
                     onMouseEnter={() => onMouseEnter(index)}
                     onMouseLeave={onMouseLeave}
-                    className={`whitespace-nowrap relative overflow-hidden flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${!isDragging && index === activeIndex ? "bg-[#E4DEFD]" : ""}`}
+                    className={`whitespace-nowrap relative overflow-hidden flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${!isDragging && index === activeIndex ? "bg-[#E4DEFD]" : "bg-white"}`}
                   >
                     <div className={"absolute"}>
                       {start === end && start}
@@ -294,7 +294,7 @@ const DatePickerComponent = forwardRef<HTMLDivElement, Props>(
                   key={`${week.start}${week.end}`}
                   onMouseEnter={() => onMouseEnter(index)}
                   onMouseLeave={onMouseLeave}
-                  className={`relative overflow-hidden flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${!isDragging && index === activeIndex ? "bg-[#E4DEFD]" : ""}`}
+                  className={`relative overflow-hidden flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${!isDragging && index === activeIndex ? "bg-[#E4DEFD]" : "bg-white"}`}
                 >
                   <div className={"absolute"}>
                     {getDayAndMonth(week.start)}-{getDayAndMonth(week.end)}
