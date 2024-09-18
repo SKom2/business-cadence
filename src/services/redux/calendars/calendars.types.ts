@@ -1,4 +1,3 @@
-
 interface IConferenceProperties {
   allowedConferenceSolutionTypes: string[];
 }
@@ -18,7 +17,8 @@ export interface ICalendarEvent {
   };
   description?: string;
   end: {
-    date: string;
+    dateTime: string;
+    timeZone: string;
   };
   etag: string;
   eventType: string;
@@ -33,10 +33,12 @@ export interface ICalendarEvent {
   };
   sequence: number;
   start: {
-    date: string;
+    dateTime: string;
+    timeZone: string;
   };
   status: string;
   summary: string;
+  backgroundColor: string;
   transparency: string;
   updated: string;
   visibility: string;
@@ -66,4 +68,3 @@ export interface ICalendarList {
 export interface ICalendarListState extends ICalendarList {
   isLoading: boolean;
 }
-

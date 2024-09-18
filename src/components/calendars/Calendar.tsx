@@ -4,6 +4,20 @@ import { toggleCalendarVisibility } from "../../services/redux/calendars/calenda
 import { useAppDispatch } from "../../services/redux/typeHooks.ts";
 import { months } from "../../months.ts";
 
+function isDayAfterEvent(date: string) {
+  const eventDate = new Date(date);
+
+  // Дата начала года
+  const startOfYear = new Date(eventDate.getFullYear(), 0, 1);
+
+  // Разница в миллисекундах между указанной датой и началом года
+  // @ts-ignore
+  const diffInTime = eventDate - startOfYear;
+
+  // Переводим разницу в дни (1 день = 24 * 60 * 60 * 1000 миллисекунд)
+  return Math.floor(diffInTime / (24 * 60 * 60 * 1000)) + 1;
+}
+
 const Calendar: FC<{
   calendar: ICalendar;
   weeksBetweenDates: { start: number; end: number }[];
@@ -31,6 +45,12 @@ const Calendar: FC<{
 }) => {
   const dispatch = useAppDispatch();
 
+  const events = calendar.events.filter(
+    (event) =>
+      leftDay <= isDayAfterEvent(event.start.dateTime) ||
+      rightDay >= isDayAfterEvent(event.end.dateTime),
+  );
+
   const onClick = () => {
     dispatch(toggleCalendarVisibility(calendar.id));
   };
@@ -49,7 +69,7 @@ const Calendar: FC<{
           <button
             className={"rounded"}
             onClick={onClick}
-            style={{ backgroundColor: calendar.backgroundColor }}
+            style={{ backgroundColor: `${calendar.backgroundColor}30` }}
           >
             {!calendar.selected && (
               <svg
@@ -140,23 +160,112 @@ const Calendar: FC<{
 
       {monthsSlice.length > 1 && rightDay - leftDay > 1 && (
         <div className={"flex grow"}>
-          {weeksBetweenDates.map((week, index) => (
-            <div
-              key={`${week.start}${week.end}`}
-              className={"flex grow relative"}
-            >
+          {weeksBetweenDates.map((week, index) => {
+            const isEventStart = events.find(
+              (event) =>
+                isDayAfterEvent(event.start.dateTime) >= week.start &&
+                isDayAfterEvent(event.start.dateTime) <= week.end,
+            );
+
+            const isEventEnd = events.find(
+              (event) =>
+                isDayAfterEvent(event.end.dateTime) >= week.start &&
+                isDayAfterEvent(event.end.dateTime) <= week.end,
+            );
+
+            const isEvent = events.find(
+              (event) =>
+                isDayAfterEvent(event.start.dateTime) <= week.start &&
+                isDayAfterEvent(event.end.dateTime) >= week.end,
+            );
+
+            return (
               <div
+                key={`${week.start}${week.end}`}
+                className={"flex grow relative"}
                 onMouseEnter={() => onMouseEnter(index)}
                 onMouseLeave={onMouseLeave}
-                className={`flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${!isDragging && index === activeIndex ? "bg-[#F9EFFF]" : ""}`}
-              />
-              {today >= week.start && today <= week.end && (
+              >
+                {calendar.selected && (
+                  <>
+                    {isEventStart && !isEventEnd && (
+                      <div
+                        className={`absolute top-1 left-1 bottom-1 right-0 rounded-l-lg`}
+                        style={{
+                          backgroundColor: isEventStart.backgroundColor,
+                        }}
+                      >
+                        <div
+                          style={{
+                            writingMode: "vertical-rl",
+                            transform: "rotate(180deg)",
+                            wordBreak: "break-word",
+                            whiteSpace: "normal",
+                            paddingTop: 6,
+                            height: 119,
+                            zIndex: 1,
+                            overflow: "hidden",
+                            position: "relative",
+                            color: "#fff",
+                            fontSize: 12,
+                          }}
+                        >
+                          {isEventStart.summary}
+                        </div>
+                      </div>
+                    )}
+                    {isEventEnd && !isEventStart && (
+                      <div
+                        className={`absolute top-1 left-0 bottom-1 right-1 rounded-r-lg`}
+                        style={{ backgroundColor: isEventEnd.backgroundColor }}
+                      />
+                    )}
+                    {isEventEnd && isEventStart && (
+                      <div
+                        className={`absolute top-1 left-1 bottom-1 right-1 rounded`}
+                        style={{ backgroundColor: isEventEnd.backgroundColor }}
+                      >
+                        <div
+                          style={{
+                            writingMode: "vertical-rl",
+                            transform: "rotate(180deg)",
+                            wordBreak: "break-word",
+                            whiteSpace: "normal",
+                            paddingTop: 6,
+                            height: 119,
+                            zIndex: 1,
+                            overflow: "hidden",
+                            position: "relative",
+                            color: "#fff",
+                            fontSize: 12,
+                          }}
+                        >
+                          {isEventStart.summary}
+                        </div>
+                      </div>
+                    )}
+                    {!isEventEnd && !isEventStart && isEvent && (
+                      <div
+                        className={`absolute top-1 left-0 bottom-1 right-0`}
+                        style={{ backgroundColor: isEvent.backgroundColor }}
+                      />
+                    )}
+                  </>
+                )}
                 <div
                   className={`absolute w-[calc(100%-1px)] left-0 top-0 bottom-0 hover:bg-black pointer-events-none ${!isDragging && index === activeIndex ? "bg-[#E9E5FD]" : "bg-[#E4DEFD]"} `}
                 />
-              )}
-            </div>
-          ))}
+                {today >= week.start && today <= week.end && (
+                  <div
+                    className={`absolute top-[-25px] bottom-0 bg-[#765CF7] w-px z-10 pointer-events-none`}
+                    style={{
+                      left: `${((today - week.start) / (week.end - week.start)) * 100}%`,
+                    }}
+                  />
+                )}
+              </div>
+            );
+          })}
         </div>
       )}
     </div>
