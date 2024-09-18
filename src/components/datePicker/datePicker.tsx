@@ -156,23 +156,62 @@ const DatePickerComponent = forwardRef<HTMLDivElement, Props>(
           />
         </div>
 
-        <div className={"flex grow h-14 border-b border-[#828282]"}>
-          {monthsSlice.map((month) => (
-            <div
-              key={month.name}
-              className={
-                "flex flex-1 border-r border-[#828282] p-1 relative overflow-hidden"
-              }
-              style={{ flexGrow: month.days }}
-            >
-              <div className={"self-end text-[10px] absolute left-1"}>
-                {month.name}
+        {monthsSlice.length === 1 && rightDay - leftDay === 1 && (
+          <div className={"flex grow h-14 border-b border-[#828282]"}>
+            {[leftDay, rightDay].map((day) => (
+              <div
+                key={day}
+                className={
+                  "flex flex-1 border-r border-[#828282] p-1 relative overflow-hidden"
+                }
+                style={{ flexGrow: 2 }}
+              >
+                <div className={"self-end text-[10px] absolute left-1"}>
+                  {getDayAndMonth(day)} {monthsSlice[0].name}
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
-        {monthsSlice.length === 1 && (
+        {monthsSlice.length >= 1 && rightDay - leftDay > 1 && (
+          <div className={"flex grow h-14 border-b border-[#828282]"}>
+            {monthsSlice.map((month) => (
+              <div
+                key={month.name}
+                className={
+                  "flex flex-1 border-r border-[#828282] p-1 relative overflow-hidden"
+                }
+                style={{ flexGrow: month.days }}
+              >
+                <div className={"self-end text-[10px] absolute left-1"}>
+                  {month.name}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {monthsSlice.length === 1 && rightDay - leftDay === 1 && (
+          <div className={"flex h-6"}>
+            {[
+              0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+              19, 20, 21, 22, 23, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
+              14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
+            ].map((hour, index) => (
+              <div
+                key={index}
+                onMouseEnter={() => onMouseEnter(index)}
+                onMouseLeave={onMouseLeave}
+                className={`relative overflow-hidden flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${!isDragging && index === activeIndex ? "bg-[#E4DEFD]" : ""}`}
+              >
+                {hour}:00
+              </div>
+            ))}
+          </div>
+        )}
+
+        {monthsSlice.length === 1 && rightDay - leftDay > 1 && (
           <div className={"flex h-6"}>
             {Array.from(
               { length: rightDay + 1 - leftDay },

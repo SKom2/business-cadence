@@ -103,7 +103,21 @@ const Calendar: FC<{
         </div>
       </div>
 
-      {monthsSlice.length === 1 && (
+      {monthsSlice.length === 1 && rightDay - leftDay === 1 && (
+        <div className={"flex grow"}>
+          {Array.from({ length: 48 }, (_, i) => i + 1).map((hour, index) => (
+            <div key={hour} className={"flex grow relative"}>
+              <div
+                onMouseEnter={() => onMouseEnter(index)}
+                onMouseLeave={onMouseLeave}
+                className={`flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${!isDragging && index === activeIndex ? "bg-[#F9EFFF]" : ""}`}
+              />
+            </div>
+          ))}
+        </div>
+      )}
+
+      {monthsSlice.length === 1 && rightDay - leftDay > 1 && (
         <div className={"flex grow"}>
           {Array.from(
             { length: rightDay + 1 - leftDay },
@@ -118,10 +132,7 @@ const Calendar: FC<{
               {today === day && (
                 <div
                   className={`absolute top-[-25px] bottom-0 bg-[#765CF7] w-px z-10 pointer-events-none`}
-                  style={{
-                    // left: `${((today - week.start) / (week.end - week.start)) * 100}%`,
-                    left: `10%`,
-                  }}
+                  style={{ left: `50%` }}
                 />
               )}
             </div>

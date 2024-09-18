@@ -246,9 +246,7 @@ function App() {
             "w-[43px] border-r border-b border-r-[#828282] border-b-[#D2C9DE] justify-center items-center md:w-48 overflow-hidden"
           }
         >
-          <div className={"hidden md:block"}>
-            <GButton />
-          </div>
+          <div className={"hidden md:block"}>{/*<GButton />*/}</div>
         </div>
 
         <DatePicker
