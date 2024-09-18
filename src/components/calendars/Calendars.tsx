@@ -4,9 +4,17 @@ import Calendar from "./Calendar.tsx";
 
 interface Props {
   weeksBetweenDates: { start: number; end: number }[];
+  activeIndex: number | null;
+  onMouseEnter: (index: number) => void;
+  onMouseLeave: () => void;
 }
 
-const Calendars = ({ weeksBetweenDates }: Props) => {
+const Calendars = ({
+  weeksBetweenDates,
+  activeIndex,
+  onMouseEnter,
+  onMouseLeave,
+}: Props) => {
   const calendars = useAppSelector((state) => state.calendarsReducer.calendars);
   const isLoading = useAppSelector((state) => state.calendarsReducer.isLoading);
 
@@ -22,6 +30,9 @@ const Calendars = ({ weeksBetweenDates }: Props) => {
             calendar={calendar}
             key={calendar.id}
             weeksBetweenDates={weeksBetweenDates}
+            activeIndex={activeIndex}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
           />
         ))}
     </div>

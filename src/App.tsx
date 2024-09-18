@@ -209,6 +209,16 @@ function App() {
 
   const weeksBetweenDates = getWeeksBetweenDates(leftDay, rightDay);
 
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
+  const handleMouseEnter = (index: number) => {
+    setActiveIndex(index);
+  };
+
+  const handleMouseLeave = () => {
+    setActiveIndex(null);
+  };
+
   return (
     <div>
       <div className={"flex"}>
@@ -245,10 +255,18 @@ function App() {
           getDayAndMonth={getDayAndMonth}
           leftDay={leftDay}
           rightDay={rightDay}
+          activeIndex={activeIndex}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
         />
       </div>
 
-      <Calendars weeksBetweenDates={weeksBetweenDates} />
+      <Calendars
+        weeksBetweenDates={weeksBetweenDates}
+        activeIndex={activeIndex}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      />
     </div>
   );
 }

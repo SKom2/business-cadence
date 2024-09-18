@@ -6,7 +6,16 @@ import { useAppDispatch } from "../../services/redux/typeHooks.ts";
 const Calendar: FC<{
   calendar: ICalendar;
   weeksBetweenDates: { start: number; end: number }[];
-}> = ({ calendar, weeksBetweenDates }) => {
+  activeIndex: number | null;
+  onMouseEnter: (index: number) => void;
+  onMouseLeave: () => void;
+}> = ({
+  calendar,
+  weeksBetweenDates,
+  activeIndex,
+  onMouseEnter,
+  onMouseLeave,
+}) => {
   const dispatch = useAppDispatch();
 
   const onClick = () => {
@@ -70,22 +79,17 @@ const Calendar: FC<{
               </svg>
             )}
           </button>
-          <div
-            // hideable value should be specified here
-            className={`text-xs font-semibold`}
-          >
-            {calendar.summary}
-          </div>
+          <div className={`text-xs font-semibold`}>{calendar.summary}</div>
         </div>
       </div>
 
       <div className={"flex grow"}>
-        {weeksBetweenDates.map((week) => (
+        {weeksBetweenDates.map((week, index) => (
           <div
             key={`${week.start}${week.end}`}
-            className={
-              "flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r"
-            }
+            onMouseEnter={() => onMouseEnter(index)}
+            onMouseLeave={onMouseLeave}
+            className={`flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${index === activeIndex ? "bg-[#F9EFFF]" : ""}`}
           />
         ))}
       </div>

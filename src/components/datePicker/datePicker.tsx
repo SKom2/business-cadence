@@ -32,6 +32,9 @@ interface Props {
   getDayAndMonth: (dayOfYear: number) => number;
   leftDay: number;
   rightDay: number;
+  activeIndex: number | null;
+  onMouseEnter: (index: number) => void;
+  onMouseLeave: () => void;
 }
 
 const DatePickerComponent = forwardRef<HTMLDivElement, Props>(
@@ -60,6 +63,9 @@ const DatePickerComponent = forwardRef<HTMLDivElement, Props>(
       getDayAndMonth,
       leftDay,
       rightDay,
+      activeIndex,
+      onMouseEnter,
+      onMouseLeave,
     } = props;
 
     const leftDragRef = useRef(null);
@@ -166,9 +172,9 @@ const DatePickerComponent = forwardRef<HTMLDivElement, Props>(
               return (
                 <div
                   key={`${leftDay}${rightDay}`}
-                  className={
-                    "flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r"
-                  }
+                  onMouseEnter={() => onMouseEnter(index)}
+                  onMouseLeave={onMouseLeave}
+                  className={`flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${index === activeIndex ? "bg-[#E4DEFD]" : ""}`}
                 >
                   {start === end && start}
                   {start !== end && `${start}-${end}`}
@@ -183,9 +189,9 @@ const DatePickerComponent = forwardRef<HTMLDivElement, Props>(
               return (
                 <div
                   key={`${leftDay}${week.end}`}
-                  className={
-                    "flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r"
-                  }
+                  onMouseEnter={() => onMouseEnter(index)}
+                  onMouseLeave={onMouseLeave}
+                  className={`flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${index === activeIndex ? "bg-[#E4DEFD]" : ""}`}
                 >
                   {start === end && start}
                   {start !== end && `${start}-${end}`}
@@ -200,9 +206,9 @@ const DatePickerComponent = forwardRef<HTMLDivElement, Props>(
               return (
                 <div
                   key={`${week.start}${rightDay}`}
-                  className={
-                    "flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r"
-                  }
+                  onMouseEnter={() => onMouseEnter(index)}
+                  onMouseLeave={onMouseLeave}
+                  className={`flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${index === activeIndex ? "bg-[#E4DEFD]" : ""}`}
                 >
                   {start === end && start}
                   {start !== end && `${start}-${end}`}
@@ -213,9 +219,9 @@ const DatePickerComponent = forwardRef<HTMLDivElement, Props>(
             return (
               <div
                 key={`${week.start}${week.end}`}
-                className={
-                  "flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r"
-                }
+                onMouseEnter={() => onMouseEnter(index)}
+                onMouseLeave={onMouseLeave}
+                className={`flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${index === activeIndex ? "bg-[#E4DEFD]" : ""}`}
               >
                 {getDayAndMonth(week.start)}-{getDayAndMonth(week.end)}
               </div>
