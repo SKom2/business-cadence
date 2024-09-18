@@ -103,7 +103,7 @@ const Calendar: FC<{
         </div>
       </div>
 
-      {monthsSlice.length === 1 && rightDay - leftDay === 1 && (
+      {rightDay - leftDay === 1 && (
         <div className={"flex grow"}>
           {Array.from({ length: 48 }, (_, i) => i + 1).map((hour, index) => (
             <div key={hour} className={"flex grow relative"}>
@@ -140,7 +140,7 @@ const Calendar: FC<{
         </div>
       )}
 
-      {monthsSlice.length > 1 && (
+      {monthsSlice.length > 1 && rightDay - leftDay > 1 && (
         <div className={"flex grow"}>
           {weeksBetweenDates.map((week, index) => (
             <div
