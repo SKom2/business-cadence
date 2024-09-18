@@ -14,7 +14,7 @@ function isDayAfterEvent(date: string) {
   const startOfYear = new Date(eventDate.getFullYear(), 0, 1);
 
   // Разница в миллисекундах между указанной датой и началом года
-  // @ts-ignore
+  // @ts-expect-error no err
   const diffInTime = eventDate - startOfYear;
 
   // Переводим разницу в дни (1 день = 24 * 60 * 60 * 1000 миллисекунд)
