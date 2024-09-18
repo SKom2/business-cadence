@@ -1,14 +1,53 @@
 
-interface ConferenceProperties {
+interface IConferenceProperties {
   allowedConferenceSolutionTypes: string[];
 }
 
-export interface CalendarListEntry {
+interface IDefaultReminders {
+  method: string;
+  minutes: number;
+}
+
+export interface ICalendarEvent {
+  calendarId: string;
+  created: string;
+  creator: {
+    email: string;
+    displayName: string;
+    self: boolean;
+  };
+  description?: string;
+  end: {
+    date: string;
+  };
+  etag: string;
+  eventType: string;
+  htmlLink: string;
+  iCalUID: string;
+  id: string;
+  kind: string;
+  organizer: {
+    email: string;
+    displayName: string;
+    self: boolean;
+  };
+  sequence: number;
+  start: {
+    date: string;
+  };
+  status: string;
+  summary: string;
+  transparency: string;
+  updated: string;
+  visibility: string;
+}
+
+export interface ICalendar {
   accessRole: string;
   backgroundColor: string;
   colorId: string;
-  conferenceProperties: ConferenceProperties;
-  defaultReminders: any[];
+  conferenceProperties: IConferenceProperties;
+  defaultReminders: IDefaultReminders[];
   description?: string;
   etag: string;
   foregroundColor: string;
@@ -17,16 +56,14 @@ export interface CalendarListEntry {
   selected: boolean;
   summary: string;
   timeZone?: string;
+  events: ICalendarEvent[];
 }
 
-export interface CalendarList {
-  etag: string;
-  items: CalendarListEntry[];
-  kind: string;
-  nextSyncToken: string;
+export interface ICalendarList {
+  calendars: ICalendar[];
 }
 
-export interface CalendarListResponse extends CalendarList {
+export interface ICalendarListState extends ICalendarList {
   isLoading: boolean;
 }
 

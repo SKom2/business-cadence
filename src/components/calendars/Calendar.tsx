@@ -1,9 +1,9 @@
 import { FC } from "react";
-import { CalendarListEntry } from "../../services/redux/calendars/calendars.types.ts";
+import { ICalendar } from "../../services/redux/calendars/calendars.types.ts";
 import { toggleCalendarVisibility } from "../../services/redux/calendars/calendars.slice.ts";
 import { useAppDispatch } from "../../services/redux/typeHooks.ts";
 
-const Calendar: FC<{ calendar: CalendarListEntry }> = ({ calendar }) => {
+const Calendar: FC<{ calendar: ICalendar }> = ({ calendar }) => {
   const dispatch = useAppDispatch()
 
   const onClick = () => {

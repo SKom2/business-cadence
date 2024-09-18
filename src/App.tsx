@@ -6,8 +6,8 @@ import { useSession, useSessionContext } from "@supabase/auth-helpers-react";
 import { useAppDispatch } from "./services/redux/typeHooks.ts";
 import { setSession } from "./services/redux/auth/auth.slice.ts";
 import {
-  fetchCalendars,
-  setItems,
+  fetchCalendarsWithEvents,
+  setItems
 } from "./services/redux/calendars/calendars.slice.ts";
 import Calendars from "./components/calendars/Calendars.tsx";
 import { testCalendarData } from "./testData.ts";
@@ -24,7 +24,7 @@ function App() {
         try {
           dispatch(setSession(session));
           if (session) {
-            dispatch(fetchCalendars(session))
+            dispatch(fetchCalendarsWithEvents(session))
           }
         } catch (error) {
           console.error('Error fetching Google Calendar events:', error);
@@ -34,7 +34,7 @@ function App() {
 
       fetchGoogleCalendarEvents();
     } else {
-      dispatch(setItems(testCalendarData.items));
+      dispatch(setItems(testCalendarData.calendars));
     }
 
   }, [session, dispatch]);
