@@ -1,13 +1,21 @@
-import { useCallback, useLayoutEffect, useRef, useState, useEffect } from "react";
+import {
+  useCallback,
+  useLayoutEffect,
+  useRef,
+  useState,
+  useEffect,
+} from "react";
 import "./App.css";
 import { DatePicker } from "./components/datePicker/datePicker.tsx";
 import GButton from "./components/googleButton/googleButton.tsx";
-import { useSession, useSessionContext } from "@supabase/auth-helpers-react";
+import {
+  useSession /*, useSessionContext*/,
+} from "@supabase/auth-helpers-react";
 import { useAppDispatch } from "./services/redux/typeHooks.ts";
 import { setSession } from "./services/redux/auth/auth.slice.ts";
 import {
   fetchCalendarsWithEvents,
-  setItems
+  setItems,
 } from "./services/redux/calendars/calendars.slice.ts";
 import Calendars from "./components/calendars/Calendars.tsx";
 import { testCalendarData } from "./testData.ts";
@@ -20,7 +28,7 @@ const days = months.reduce((acc, item) => {
 
 function App() {
   const session = useSession();
-  const { isLoading } = useSessionContext();
+  // const { isLoading } = useSessionContext();
 
   const dispatch = useAppDispatch();
 
@@ -30,24 +38,18 @@ function App() {
         try {
           dispatch(setSession(session));
           if (session) {
-            dispatch(fetchCalendarsWithEvents(session))
+            dispatch(fetchCalendarsWithEvents(session));
           }
         } catch (error) {
-          console.error('Error fetching Google Calendar events:', error);
+          console.error("Error fetching Google Calendar events:", error);
         }
       };
-
 
       fetchGoogleCalendarEvents();
     } else {
       dispatch(setItems(testCalendarData.calendars));
     }
-
   }, [session, dispatch]);
-
-  if (isLoading) {
-    return <>Loading...</>;
-  }
 
   const ref = useRef<HTMLDivElement>(null);
 
@@ -246,7 +248,7 @@ function App() {
         />
       </div>
 
-      <Calendars />
+      <Calendars weeksBetweenDates={weeksBetweenDates} />
     </div>
   );
 }

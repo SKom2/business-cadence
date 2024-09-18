@@ -3,22 +3,21 @@ import { ICalendar } from "../../services/redux/calendars/calendars.types.ts";
 import { toggleCalendarVisibility } from "../../services/redux/calendars/calendars.slice.ts";
 import { useAppDispatch } from "../../services/redux/typeHooks.ts";
 
-const Calendar: FC<{ calendar: ICalendar }> = ({ calendar }) => {
-  const dispatch = useAppDispatch()
+const Calendar: FC<{
+  calendar: ICalendar;
+  weeksBetweenDates: { start: number; end: number }[];
+}> = ({ calendar, weeksBetweenDates }) => {
+  const dispatch = useAppDispatch();
 
   const onClick = () => {
-    dispatch(toggleCalendarVisibility(calendar.id))
-  }
+    dispatch(toggleCalendarVisibility(calendar.id));
+  };
 
   return (
     <div
       className={`flex border-b border-[#CBCBCB] ${!calendar.selected ? "" : "h-32"}`}
     >
-      <div
-        className={
-          "flex items-start w-48 border-r border-[#CBCBCB] p-2.5"
-        }
-      >
+      <div className={"flex items-start w-48 border-r border-[#CBCBCB] p-2.5"}>
         <div className={"flex gap-2 items-center truncate"}>
           {/*hideable value should be specified here */}
           <button
@@ -78,6 +77,17 @@ const Calendar: FC<{ calendar: ICalendar }> = ({ calendar }) => {
             {calendar.summary}
           </div>
         </div>
+      </div>
+
+      <div className={"flex grow"}>
+        {weeksBetweenDates.map((week) => (
+          <div
+            key={`${week.start}${week.end}`}
+            className={
+              "flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r"
+            }
+          />
+        ))}
       </div>
     </div>
   );
