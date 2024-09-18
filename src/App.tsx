@@ -8,11 +8,7 @@ import {
 import "./App.css";
 import { DatePicker } from "./components/datePicker/datePicker.tsx";
 import GButton from "./components/googleButton/googleButton.tsx";
-import {
-  useSession /*, useSessionContext*/,
-} from "@supabase/auth-helpers-react";
-import { useAppDispatch } from "./services/redux/typeHooks.ts";
-import { setSession } from "./services/redux/auth/auth.slice.ts";
+import { useAppDispatch, useAppSelector } from "./services/redux/typeHooks.ts";
 import {
   fetchCalendarsWithEvents,
   setItems,
@@ -27,18 +23,16 @@ const days = months.reduce((acc, item) => {
 }, 0);
 
 function App() {
-  const session = useSession();
-  // const { isLoading } = useSessionContext();
+  const token = useAppSelector(state => state.authReducer.token)
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (session) {
+    if (token) {
       const fetchGoogleCalendarEvents = async () => {
         try {
-          dispatch(setSession(session));
-          if (session) {
-            dispatch(fetchCalendarsWithEvents(session));
+          if (token) {
+            dispatch(fetchCalendarsWithEvents(token));
           }
         } catch (error) {
           console.error("Error fetching Google Calendar events:", error);
@@ -49,7 +43,7 @@ function App() {
     } else {
       dispatch(setItems(testCalendarData.calendars));
     }
-  }, [session, dispatch]);
+  }, [token, dispatch]);
 
   const ref = useRef<HTMLDivElement>(null);
 

@@ -1,18 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { calendarsService } from "./calendars.service.ts";
-import { Session } from "@supabase/supabase-js";
 import { ICalendar, ICalendarEvent, ICalendarListState } from "./calendars.types.ts";
 
 export const fetchCalendarsWithEvents = createAsyncThunk(
   'auth/fetchCalendarsWithEvents',
-  async (session: Session, { fulfillWithValue, rejectWithValue }) => {
+  async (token: string, { fulfillWithValue, rejectWithValue }) => {
     try {
-      if (session.provider_token) {
-        const calendarsResponse = await calendarsService.fetchCalendars(session.provider_token);
+      if (token) {
+        const calendarsResponse = await calendarsService.fetchCalendars(token);
         if (!calendarsResponse) throw new Error("Failed to fetch calendars");
 
         const fetchEventsPromises = calendarsResponse.items.map(async (calendar: ICalendar) => {
-          const eventsResponse = await calendarsService.fetchCalendarEvents(session.provider_token!, calendar.id);
+          const eventsResponse = await calendarsService.fetchCalendarEvents(token, calendar.id);
           return { calendarId: calendar.id, events: eventsResponse.items };
         });
 
