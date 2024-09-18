@@ -368,6 +368,11 @@ const Calendar: FC<{
                 className={"flex grow relative"}
                 onMouseEnter={() => onMouseEnter(index)}
                 onMouseLeave={onMouseLeave}
+                style={
+                  day % 7 === 5 || day % 7 === 6
+                    ? { backgroundColor: "#EBEBEB" }
+                    : {}
+                }
               >
                 {calendar.selected && (
                   <>

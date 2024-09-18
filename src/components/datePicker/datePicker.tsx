@@ -222,6 +222,11 @@ const DatePickerComponent = forwardRef<HTMLDivElement, Props>(
                 onMouseEnter={() => onMouseEnter(index)}
                 onMouseLeave={onMouseLeave}
                 className={`relative overflow-hidden flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${!isDragging && index === activeIndex ? "bg-[#E4DEFD]" : ""}`}
+                style={
+                  day % 7 === 5 || day % 7 === 6
+                    ? { backgroundColor: "#EBEBEB" }
+                    : {}
+                }
               >
                 <div className={"absolute"}>{getDayAndMonth(day)}</div>
               </div>
