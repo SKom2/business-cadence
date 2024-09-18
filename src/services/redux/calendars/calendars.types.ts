@@ -38,6 +38,7 @@ export interface ICalendarEvent {
   };
   status: string;
   summary: string;
+  longSummary: string;
   backgroundColor: string;
   transparency: string;
   updated: string;

@@ -1,5 +1,8 @@
 import { FC } from "react";
-import { ICalendar } from "../../services/redux/calendars/calendars.types.ts";
+import {
+  ICalendar,
+  ICalendarEvent,
+} from "../../services/redux/calendars/calendars.types.ts";
 import { toggleCalendarVisibility } from "../../services/redux/calendars/calendars.slice.ts";
 import { useAppDispatch } from "../../services/redux/typeHooks.ts";
 import { months } from "../../months.ts";
@@ -35,6 +38,8 @@ const Calendar: FC<{
   endMonth: number;
   leftDay: number;
   rightDay: number;
+  onEventEnter: (event: ICalendarEvent | undefined) => void;
+  onEventLeave: () => void;
 }> = ({
   calendar,
   weeksBetweenDates,
@@ -47,6 +52,8 @@ const Calendar: FC<{
   endMonth,
   leftDay,
   rightDay,
+  onEventEnter,
+  onEventLeave,
 }) => {
   const dispatch = useAppDispatch();
 
@@ -473,7 +480,12 @@ const Calendar: FC<{
                 onMouseLeave={onMouseLeave}
               >
                 {calendar.selected && (
-                  <>
+                  <div
+                    onMouseEnter={() =>
+                      onEventEnter(isEventStart || isEventEnd || isEvent)
+                    }
+                    onMouseLeave={onEventLeave}
+                  >
                     {isEventStart && !isEventEnd && (
                       <div
                         className={`absolute top-1 left-1 bottom-1 right-0 rounded-l-lg`}
@@ -536,7 +548,7 @@ const Calendar: FC<{
                         style={{ backgroundColor: isEvent.backgroundColor }}
                       />
                     )}
-                  </>
+                  </div>
                 )}
                 <div
                   className={`flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${!isDragging && index === activeIndex ? "bg-[#F9EFFF]" : ""}`}

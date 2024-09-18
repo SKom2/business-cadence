@@ -21,6 +21,7 @@ import { testCalendarData } from "./testData.ts";
 import { months } from "./months.ts";
 import { DraggableData, DraggableEvent } from "react-draggable";
 import useResizeObserver from "@react-hook/resize-observer";
+import { ICalendarEvent } from "./services/redux/calendars/calendars.types.ts";
 
 const days = months.reduce((acc, item) => {
   return acc + item.days;
@@ -237,15 +238,50 @@ function App() {
     setContainerWidth(entry.contentRect.width);
   });
 
+  const [hoveredEvent, setHoveredEvent] = useState<
+    ICalendarEvent | undefined
+  >();
+
+  const onEventEnter = (event: ICalendarEvent | undefined) => {
+    setHoveredEvent(event);
+  };
+
+  const onEventLeave = () => {
+    setHoveredEvent(undefined);
+  };
+
+  const formatDate = (dateString: string | undefined) => {
+    if (!dateString) {
+      return;
+    }
+
+    const date = new Date(dateString);
+
+    return date.toLocaleDateString("en-US", { month: "long", day: "numeric" });
+  };
+
   return (
     <div>
       <div className={"flex"}>
         <div
           className={
-            "w-[43px] border-r border-b border-r-[#828282] border-b-[#D2C9DE] justify-center items-center md:w-48 overflow-hidden"
+            "w-[43px] border-r border-b border-r-[#828282] border-b-[#D2C9DE] justify-center items-center md:w-48 overflow-hidden p-2.5 text-white"
           }
+          style={{ backgroundColor: hoveredEvent?.backgroundColor }}
         >
-          <div className={"hidden md:block"}>{/*<GButton />*/}</div>
+          <div className={"hidden md:block"}>{hoveredEvent?.longSummary}</div>
+          <div>
+            {formatDate(hoveredEvent?.start.dateTime) ===
+              formatDate(hoveredEvent?.end.dateTime) &&
+              formatDate(hoveredEvent?.start.dateTime)}
+            {formatDate(hoveredEvent?.start.dateTime) !==
+              formatDate(hoveredEvent?.end.dateTime) && (
+              <>
+                {formatDate(hoveredEvent?.start.dateTime)} -{" "}
+                {formatDate(hoveredEvent?.end.dateTime)}
+              </>
+            )}
+          </div>
         </div>
 
         <DatePicker
@@ -291,6 +327,8 @@ function App() {
         endMonth={endMonth}
         leftDay={leftDay}
         rightDay={rightDay}
+        onEventEnter={onEventEnter}
+        onEventLeave={onEventLeave}
       />
     </div>
   );

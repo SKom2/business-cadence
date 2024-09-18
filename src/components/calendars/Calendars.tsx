@@ -1,4 +1,7 @@
-import { ICalendar } from "../../services/redux/calendars/calendars.types.ts";
+import {
+  ICalendar,
+  ICalendarEvent,
+} from "../../services/redux/calendars/calendars.types.ts";
 import { useAppSelector } from "../../services/redux/typeHooks.ts";
 import Calendar from "./Calendar.tsx";
 
@@ -13,6 +16,8 @@ interface Props {
   endMonth: number;
   leftDay: number;
   rightDay: number;
+  onEventEnter: (event: ICalendarEvent | undefined) => void;
+  onEventLeave: () => void;
 }
 
 const Calendars = ({
@@ -26,6 +31,8 @@ const Calendars = ({
   endMonth,
   leftDay,
   rightDay,
+  onEventEnter,
+  onEventLeave,
 }: Props) => {
   const calendars = useAppSelector((state) => state.calendarsReducer.calendars);
   const isLoading = useAppSelector((state) => state.calendarsReducer.isLoading);
@@ -51,6 +58,8 @@ const Calendars = ({
             endMonth={endMonth}
             leftDay={leftDay}
             rightDay={rightDay}
+            onEventEnter={onEventEnter}
+            onEventLeave={onEventLeave}
           />
         ))}
     </div>
