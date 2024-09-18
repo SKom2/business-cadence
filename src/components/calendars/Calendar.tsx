@@ -164,6 +164,7 @@ const Calendar: FC<{
                 className={"flex grow relative"}
                 onMouseEnter={() => onMouseEnter(index)}
                 onMouseLeave={onMouseLeave}
+                style={today === leftDay ? { backgroundColor: "#E4DEFD" } : {}}
               >
                 {calendar.selected && (
                   <>
@@ -265,6 +266,7 @@ const Calendar: FC<{
                 className={"flex grow relative"}
                 onMouseEnter={() => onMouseEnter(index + 24)}
                 onMouseLeave={onMouseLeave}
+                style={today === rightDay ? { backgroundColor: "#E4DEFD" } : {}}
               >
                 {calendar.selected && (
                   <>
@@ -369,9 +371,11 @@ const Calendar: FC<{
                 onMouseEnter={() => onMouseEnter(index)}
                 onMouseLeave={onMouseLeave}
                 style={
-                  day % 7 === 5 || day % 7 === 6
-                    ? { backgroundColor: "#EBEBEB" }
-                    : {}
+                  day === today
+                    ? { backgroundColor: "#E4DEFD" }
+                    : day % 7 === 5 || day % 7 === 6
+                      ? { backgroundColor: "#EBEBEB" }
+                      : {}
                 }
               >
                 {calendar.selected && (

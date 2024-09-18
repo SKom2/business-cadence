@@ -313,6 +313,7 @@ function App() {
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           isDragging={isLeftDragging || isRightDragging}
+          today={today}
         />
       </div>
 

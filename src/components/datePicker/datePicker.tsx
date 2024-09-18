@@ -36,6 +36,7 @@ interface Props {
   onMouseEnter: (index: number) => void;
   onMouseLeave: () => void;
   isDragging: boolean;
+  today: number;
 }
 
 const DatePickerComponent = forwardRef<HTMLDivElement, Props>(
@@ -68,6 +69,7 @@ const DatePickerComponent = forwardRef<HTMLDivElement, Props>(
       onMouseEnter,
       onMouseLeave,
       isDragging,
+      today,
     } = props;
 
     const leftDragRef = useRef(null);
@@ -221,11 +223,13 @@ const DatePickerComponent = forwardRef<HTMLDivElement, Props>(
                 key={day}
                 onMouseEnter={() => onMouseEnter(index)}
                 onMouseLeave={onMouseLeave}
-                className={`relative overflow-hidden flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${!isDragging && index === activeIndex ? "bg-[#E4DEFD]" : ""}`}
+                className={`relative overflow-hidden flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r`}
                 style={
-                  day % 7 === 5 || day % 7 === 6
-                    ? { backgroundColor: "#EBEBEB" }
-                    : {}
+                  day === today || (!isDragging && index === activeIndex)
+                    ? { backgroundColor: "#E4DEFD" }
+                    : day % 7 === 5 || day % 7 === 6
+                      ? { backgroundColor: "#EBEBEB" }
+                      : {}
                 }
               >
                 <div className={"absolute"}>{getDayAndMonth(day)}</div>
