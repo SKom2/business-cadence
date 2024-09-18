@@ -177,7 +177,7 @@ function App() {
 
       setContainerWidth(width);
     }
-  }, [dragWidth]);
+  }, [dragWidth, initialRightGap]);
 
   function getWeeksBetweenDates(
     startDate: number,
