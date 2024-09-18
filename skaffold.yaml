@@ -14,7 +14,7 @@ build:
 deploy:
   helm:
     releases:
-      - name: my-frontend
+      - name: business-cadence
         remoteChart: oci://registry.jetbrains.team/p/cb/helm-charts/simple-app # You can leave it or specify any your helm chart or from your repo
         version: 0.2.1
         upgradeOnChange: true
