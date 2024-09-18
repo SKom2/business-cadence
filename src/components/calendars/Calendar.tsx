@@ -2,6 +2,7 @@ import { FC } from "react";
 import { ICalendar } from "../../services/redux/calendars/calendars.types.ts";
 import { toggleCalendarVisibility } from "../../services/redux/calendars/calendars.slice.ts";
 import { useAppDispatch } from "../../services/redux/typeHooks.ts";
+import { months } from "../../months.ts";
 
 const Calendar: FC<{
   calendar: ICalendar;
@@ -10,6 +11,11 @@ const Calendar: FC<{
   onMouseEnter: (index: number) => void;
   onMouseLeave: () => void;
   today: number;
+  isDragging: boolean;
+  startMonth: number;
+  endMonth: number;
+  leftDay: number;
+  rightDay: number;
 }> = ({
   calendar,
   weeksBetweenDates,
@@ -17,6 +23,11 @@ const Calendar: FC<{
   onMouseEnter,
   onMouseLeave,
   today,
+  isDragging,
+  startMonth,
+  endMonth,
+  leftDay,
+  rightDay,
 }) => {
   const dispatch = useAppDispatch();
 
@@ -24,11 +35,17 @@ const Calendar: FC<{
     dispatch(toggleCalendarVisibility(calendar.id));
   };
 
+  const monthsSlice = months.slice(startMonth, endMonth + 1);
+
   return (
     <div
       className={`flex border-b border-[#CBCBCB] ${!calendar.selected ? "" : "h-32"}`}
     >
-      <div className={"flex items-start w-48 border-r border-[#828282] p-2.5"}>
+      <div
+        className={
+          "flex items-start md:w-48 w-[43px] border-r border-[#828282] p-2.5"
+        }
+      >
         <div className={"flex gap-2 items-center truncate"}>
           <button
             className={"rounded"}
@@ -80,32 +97,62 @@ const Calendar: FC<{
               </svg>
             )}
           </button>
-          <div className={`text-xs font-semibold`}>{calendar.summary}</div>
+          <div className={`text-xs font-semibold hidden md:block`}>
+            {calendar.summary}
+          </div>
         </div>
       </div>
 
-      <div className={"flex grow"}>
-        {weeksBetweenDates.map((week, index) => (
-          <div
-            key={`${week.start}${week.end}`}
-            className={"flex grow relative"}
-          >
-            <div
-              onMouseEnter={() => onMouseEnter(index)}
-              onMouseLeave={onMouseLeave}
-              className={`flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${index === activeIndex ? "bg-[#F9EFFF]" : ""}`}
-            />
-            {today >= week.start && today <= week.end && (
+      {monthsSlice.length === 1 && (
+        <div className={"flex grow"}>
+          {Array.from(
+            { length: rightDay + 1 - leftDay },
+            (_, i) => i + leftDay,
+          ).map((day, index) => (
+            <div key={day} className={"flex grow relative"}>
               <div
-                className={`absolute top-[-25px] bottom-0 bg-[#765CF7] w-px z-10 pointer-events-none`}
-                style={{
-                  left: `${((today - week.start) / (week.end - week.start)) * 100}%`,
-                }}
+                onMouseEnter={() => onMouseEnter(index)}
+                onMouseLeave={onMouseLeave}
+                className={`flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${!isDragging && index === activeIndex ? "bg-[#F9EFFF]" : ""}`}
               />
-            )}
-          </div>
-        ))}
-      </div>
+              {today === day && (
+                <div
+                  className={`absolute top-[-25px] bottom-0 bg-[#765CF7] w-px z-10 pointer-events-none`}
+                  style={{
+                    // left: `${((today - week.start) / (week.end - week.start)) * 100}%`,
+                    left: `10%`,
+                  }}
+                />
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {monthsSlice.length > 1 && (
+        <div className={"flex grow"}>
+          {weeksBetweenDates.map((week, index) => (
+            <div
+              key={`${week.start}${week.end}`}
+              className={"flex grow relative"}
+            >
+              <div
+                onMouseEnter={() => onMouseEnter(index)}
+                onMouseLeave={onMouseLeave}
+                className={`flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${!isDragging && index === activeIndex ? "bg-[#F9EFFF]" : ""}`}
+              />
+              {today >= week.start && today <= week.end && (
+                <div
+                  className={`absolute top-[-25px] bottom-0 bg-[#765CF7] w-px z-10 pointer-events-none`}
+                  style={{
+                    left: `${((today - week.start) / (week.end - week.start)) * 100}%`,
+                  }}
+                />
+              )}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

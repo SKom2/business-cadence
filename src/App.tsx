@@ -243,10 +243,12 @@ function App() {
       <div className={"flex"}>
         <div
           className={
-            "w-48 border-r border-b border-r-[#828282] border-b-[#D2C9DE] flex justify-center items-center"
+            "w-[43px] border-r border-b border-r-[#828282] border-b-[#D2C9DE] justify-center items-center md:w-48 overflow-hidden"
           }
         >
-          <GButton />
+          <div className={"hidden md:block"}>
+            <GButton />
+          </div>
         </div>
 
         <DatePicker
@@ -277,6 +279,7 @@ function App() {
           activeIndex={activeIndex}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
+          isDragging={isLeftDragging || isRightDragging}
         />
       </div>
 
@@ -286,6 +289,11 @@ function App() {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         today={today}
+        isDragging={isLeftDragging || isRightDragging}
+        startMonth={startMonth}
+        endMonth={endMonth}
+        leftDay={leftDay}
+        rightDay={rightDay}
       />
     </div>
   );

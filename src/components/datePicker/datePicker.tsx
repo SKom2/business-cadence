@@ -35,6 +35,7 @@ interface Props {
   activeIndex: number | null;
   onMouseEnter: (index: number) => void;
   onMouseLeave: () => void;
+  isDragging: boolean;
 }
 
 const DatePickerComponent = forwardRef<HTMLDivElement, Props>(
@@ -66,10 +67,13 @@ const DatePickerComponent = forwardRef<HTMLDivElement, Props>(
       activeIndex,
       onMouseEnter,
       onMouseLeave,
+      isDragging,
     } = props;
 
     const leftDragRef = useRef(null);
     const rightDragRef = useRef(null);
+
+    const monthsSlice = months.slice(startMonth, endMonth + 1);
 
     return (
       <div className={"flex flex-col grow border-b border-[#828282]"}>
@@ -153,7 +157,7 @@ const DatePickerComponent = forwardRef<HTMLDivElement, Props>(
         </div>
 
         <div className={"flex grow h-14 border-b border-[#828282]"}>
-          {months.slice(startMonth, endMonth + 1).map((month) => (
+          {monthsSlice.map((month) => (
             <div
               key={month.name}
               className={
@@ -168,79 +172,99 @@ const DatePickerComponent = forwardRef<HTMLDivElement, Props>(
           ))}
         </div>
 
-        <div className={"flex h-6"}>
-          {weeksBetweenDates.map((week, index, array) => {
-            if (array.length === 1) {
-              const start = getDayAndMonth(leftDay);
-              const end = getDayAndMonth(rightDay);
-
-              return (
-                <div
-                  key={`${leftDay}${rightDay}`}
-                  onMouseEnter={() => onMouseEnter(index)}
-                  onMouseLeave={onMouseLeave}
-                  className={`whitespace-nowrap relative overflow-hidden flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${index === activeIndex ? "bg-[#E4DEFD]" : ""}`}
-                >
-                  <div className={"absolute"}>
-                    {start === end && start}
-                    {start !== end && `${start}-${end}`}
-                  </div>
-                </div>
-              );
-            }
-
-            if (index === 0) {
-              const start = getDayAndMonth(leftDay);
-              const end = getDayAndMonth(week.end);
-
-              return (
-                <div
-                  key={`${leftDay}${week.end}`}
-                  onMouseEnter={() => onMouseEnter(index)}
-                  onMouseLeave={onMouseLeave}
-                  className={`whitespace-nowrap relative overflow-hidden flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${index === activeIndex ? "bg-[#E4DEFD]" : ""}`}
-                >
-                  <div className={"absolute"}>
-                    {start === end && start}
-                    {start !== end && `${start}-${end}`}
-                  </div>
-                </div>
-              );
-            }
-
-            if (index === array.length - 1) {
-              const start = getDayAndMonth(week.start);
-              const end = getDayAndMonth(rightDay);
-
-              return (
-                <div
-                  key={`${week.start}${rightDay}`}
-                  onMouseEnter={() => onMouseEnter(index)}
-                  onMouseLeave={onMouseLeave}
-                  className={`whitespace-nowrap relative overflow-hidden flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${index === activeIndex ? "bg-[#E4DEFD]" : ""}`}
-                >
-                  <div className={"absolute"}>
-                    {start === end && start}
-                    {start !== end && `${start}-${end}`}
-                  </div>
-                </div>
-              );
-            }
-
-            return (
+        {monthsSlice.length === 1 && (
+          <div className={"flex h-6"}>
+            {Array.from(
+              { length: rightDay + 1 - leftDay },
+              (_, i) => i + leftDay,
+            ).map((day, index) => (
               <div
-                key={`${week.start}${week.end}`}
+                key={day}
                 onMouseEnter={() => onMouseEnter(index)}
                 onMouseLeave={onMouseLeave}
-                className={`relative overflow-hidden flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${index === activeIndex ? "bg-[#E4DEFD]" : ""}`}
+                className={`relative overflow-hidden flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${!isDragging && index === activeIndex ? "bg-[#E4DEFD]" : ""}`}
               >
-                <div className={"absolute"}>
-                  {getDayAndMonth(week.start)}-{getDayAndMonth(week.end)}
-                </div>
+                <div className={"absolute"}>{getDayAndMonth(day)}</div>
               </div>
-            );
-          })}
-        </div>
+            ))}
+          </div>
+        )}
+
+        {monthsSlice.length > 1 && (
+          <div className={"flex h-6"}>
+            {weeksBetweenDates.map((week, index, array) => {
+              if (array.length === 1) {
+                const start = getDayAndMonth(leftDay);
+                const end = getDayAndMonth(rightDay);
+
+                return (
+                  <div
+                    key={`${leftDay}${rightDay}`}
+                    onMouseEnter={() => onMouseEnter(index)}
+                    onMouseLeave={onMouseLeave}
+                    className={`whitespace-nowrap relative overflow-hidden flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${!isDragging && index === activeIndex ? "bg-[#E4DEFD]" : ""}`}
+                  >
+                    <div className={"absolute"}>
+                      {start === end && start}
+                      {start !== end && `${start}-${end}`}
+                    </div>
+                  </div>
+                );
+              }
+
+              if (index === 0) {
+                const start = getDayAndMonth(leftDay);
+                const end = getDayAndMonth(week.end);
+
+                return (
+                  <div
+                    key={`${leftDay}${week.end}`}
+                    onMouseEnter={() => onMouseEnter(index)}
+                    onMouseLeave={onMouseLeave}
+                    className={`whitespace-nowrap relative overflow-hidden flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${!isDragging && index === activeIndex ? "bg-[#E4DEFD]" : ""}`}
+                  >
+                    <div className={"absolute"}>
+                      {start === end && start}
+                      {start !== end && `${start}-${end}`}
+                    </div>
+                  </div>
+                );
+              }
+
+              if (index === array.length - 1) {
+                const start = getDayAndMonth(week.start);
+                const end = getDayAndMonth(rightDay);
+
+                return (
+                  <div
+                    key={`${week.start}${rightDay}`}
+                    onMouseEnter={() => onMouseEnter(index)}
+                    onMouseLeave={onMouseLeave}
+                    className={`whitespace-nowrap relative overflow-hidden flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${!isDragging && index === activeIndex ? "bg-[#E4DEFD]" : ""}`}
+                  >
+                    <div className={"absolute"}>
+                      {start === end && start}
+                      {start !== end && `${start}-${end}`}
+                    </div>
+                  </div>
+                );
+              }
+
+              return (
+                <div
+                  key={`${week.start}${week.end}`}
+                  onMouseEnter={() => onMouseEnter(index)}
+                  onMouseLeave={onMouseLeave}
+                  className={`relative overflow-hidden flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${!isDragging && index === activeIndex ? "bg-[#E4DEFD]" : ""}`}
+                >
+                  <div className={"absolute"}>
+                    {getDayAndMonth(week.start)}-{getDayAndMonth(week.end)}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     );
   },

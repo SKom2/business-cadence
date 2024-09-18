@@ -8,6 +8,11 @@ interface Props {
   onMouseEnter: (index: number) => void;
   onMouseLeave: () => void;
   today: number;
+  isDragging: boolean;
+  startMonth: number;
+  endMonth: number;
+  leftDay: number;
+  rightDay: number;
 }
 
 const Calendars = ({
@@ -16,6 +21,11 @@ const Calendars = ({
   onMouseEnter,
   onMouseLeave,
   today,
+  isDragging,
+  startMonth,
+  endMonth,
+  leftDay,
+  rightDay,
 }: Props) => {
   const calendars = useAppSelector((state) => state.calendarsReducer.calendars);
   const isLoading = useAppSelector((state) => state.calendarsReducer.isLoading);
@@ -36,6 +46,11 @@ const Calendars = ({
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
             today={today}
+            isDragging={isDragging}
+            startMonth={startMonth}
+            endMonth={endMonth}
+            leftDay={leftDay}
+            rightDay={rightDay}
           />
         ))}
     </div>
