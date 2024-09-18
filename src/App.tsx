@@ -121,6 +121,8 @@ function App() {
 
   const dragWidth = oneDay;
 
+  const initialRightGap = 5 * dragWidth;
+
   const handleDragLeft = useCallback(
     (_: DraggableEvent, data: DraggableData) => {
       setIsLeftDragging(true);
@@ -159,7 +161,7 @@ function App() {
 
       setLeftBound({
         left: dragWidth,
-        right: width - dragWidth - dragWidth,
+        right: width - dragWidth - initialRightGap,
       });
       setRightBound({
         left: dragWidth + dragWidth,
@@ -167,7 +169,10 @@ function App() {
       });
 
       setLeftPosition((value) => ({ ...value, x: dragWidth }));
-      setRightPosition((value) => ({ ...value, x: width - dragWidth }));
+      setRightPosition((value) => ({
+        ...value,
+        x: width - initialRightGap,
+      }));
 
       setContainerWidth(width);
     }

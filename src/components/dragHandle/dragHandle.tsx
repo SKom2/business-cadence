@@ -41,7 +41,7 @@ const DragHandleComponent = forwardRef<HTMLButtonElement, Props>(
         {isDragging && (
           <div
             className={
-              "absolute bottom-[2px] opacity-80 -translate-x-1/2 bg-white border rounded text-sm px-0.5"
+              "absolute bottom-0 opacity-80 translate-y-full -translate-x-1/2 bg-white border rounded text-sm px-0.5"
             }
           >
             {day}

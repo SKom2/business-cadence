@@ -151,7 +151,9 @@ const DatePickerComponent = forwardRef<HTMLDivElement, Props>(
           />
         </div>
 
-        <div className={"flex grow h-14 border-b border-[#828282]"}>
+        <div
+          className={"flex grow h-14 border-b border-[#828282] bg-[#EBEBEB]"}
+        >
           {months.slice(startMonth, endMonth + 1).map((month) => (
             <div
               key={month.name}
@@ -163,7 +165,7 @@ const DatePickerComponent = forwardRef<HTMLDivElement, Props>(
           ))}
         </div>
 
-        <div className={"flex h-6"}>
+        <div className={"flex h-6 bg-[#EBEBEB]"}>
           {weeksBetweenDates.map((week, index, array) => {
             if (array.length === 1) {
               const start = getDayAndMonth(leftDay);
