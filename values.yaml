@@ -1,0 +1,7 @@
+containerPort: 8080
+health:
+  path: /
+ingress:
+  enabled: false
+runAsUser: 101
+runAsGroup: 101
