@@ -28,7 +28,7 @@ const Calendar: FC<{
     <div
       className={`flex border-b border-[#CBCBCB] ${!calendar.selected ? "" : "h-32"}`}
     >
-      <div className={"flex items-start w-48 border-r border-[#CBCBCB] p-2.5"}>
+      <div className={"flex items-start w-48 border-r border-[#828282] p-2.5"}>
         <div className={"flex gap-2 items-center truncate"}>
           {/*hideable value should be specified here */}
           <button
