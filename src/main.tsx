@@ -4,15 +4,14 @@ import App from "./App.tsx";
 import "./index.css";
 import { Provider } from "react-redux";
 import { store } from "./services/redux/store.ts";
-import { SessionContextProvider } from "@supabase/auth-helpers-react";
-import supabaseClient from "./api/supabaseClient.ts";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider store={store}>
-      <SessionContextProvider supabaseClient={supabaseClient}>
+      <GoogleOAuthProvider clientId="398686391073-mit820etrmp671rbq3paojtakv0k339p.apps.googleusercontent.com">
         <App />
-      </SessionContextProvider>
+      </GoogleOAuthProvider>
     </Provider>
   </StrictMode>,
 );

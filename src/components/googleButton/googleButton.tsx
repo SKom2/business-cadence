@@ -1,46 +1,35 @@
-import GoogleButton from 'react-google-button';
-import { OAuthResponse } from '@supabase/supabase-js';
-import supabase from "../../api/supabaseClient.ts";
+import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import { useAppDispatch, useAppSelector } from "../../services/redux/typeHooks.ts";
-import { setSession } from "../../services/redux/auth/auth.slice.ts";
+import { setToken, setUser } from "../../services/redux/auth/auth.slice.ts";
+import GoogleButton from "react-google-button";
 
 const GButton = () => {
-  const session = useAppSelector(state => state.authReducer.session);
   const dispatch = useAppDispatch();
+  const token = useAppSelector(state => state.authReducer.token)
 
-  const signIn = async () => {
-    try {
-      const { error }: OAuthResponse =
-        await supabase.auth.signInWithOAuth({
-          provider: 'google',
-          options: {
-            scopes: 'https://www.googleapis.com/auth/calendar',
-          },
-        });
-
-      if (error) throw error;
-
-    } catch (error) {
-      console.error('Error during sign in:', error);
+  const signIn = useGoogleLogin({
+    onSuccess: (response) => {
+      if (response.access_token) {
+        dispatch(setToken(response.access_token));
+      }
     }
-  };
-  const signOut = async () => {
-    await supabase.auth.signOut();
-    dispatch(setSession(null));
+  })
 
-  }
+  const signOut = () => {
+    googleLogout();
+    setUser(null);
+  };
 
   return (
-    <>
-      {session ? (
-        <>
-          <img src={session.user.user_metadata.avatar_url} alt="Avatar" className="h-[50px] w-[50px] rounded" />
-          <button className="hover:bg-amber-50" onClick={signOut}>Logout</button>
-        </>
+    <div>
+      {token ? (
+        <div>
+          <button onClick={signOut}>Logout</button>
+        </div>
       ) : (
-        <GoogleButton onClick={signIn} className="w-full" />
+        <GoogleButton onClick={() => signIn()}>Google Login</GoogleButton>
       )}
-    </>
+    </div>
   );
 };
 
