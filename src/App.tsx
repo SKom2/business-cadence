@@ -21,6 +21,7 @@ import Calendars from "./components/calendars/Calendars.tsx";
 import { testCalendarData } from "./testData.ts";
 import { months } from "./months.ts";
 import { DraggableData, DraggableEvent } from "react-draggable";
+import useResizeObserver from "@react-hook/resize-observer";
 
 const days = months.reduce((acc, item) => {
   return acc + item.days;
@@ -232,6 +233,10 @@ function App() {
   };
 
   const today = getToday();
+
+  useResizeObserver(ref, (entry) => {
+    setContainerWidth(entry.contentRect.width);
+  });
 
   return (
     <div>
