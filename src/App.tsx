@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useLayoutEffect, useRef, useState, useEffect } from "react";
 import "./App.css";
 import { DatePicker } from "./components/datePicker/datePicker.tsx";
 import GButton from "./components/googleButton/googleButton.tsx";
@@ -11,6 +11,12 @@ import {
 } from "./services/redux/calendars/calendars.slice.ts";
 import Calendars from "./components/calendars/Calendars.tsx";
 import { testCalendarData } from "./testData.ts";
+import { months } from "./months.ts";
+import { DraggableData, DraggableEvent } from "react-draggable";
+
+const days = months.reduce((acc, item) => {
+  return acc + item.days;
+}, 0);
 
 function App() {
   const session = useSession();
@@ -43,6 +49,164 @@ function App() {
     return <>Loading...</>;
   }
 
+  const ref = useRef<HTMLDivElement>(null);
+
+  const [containerWidth, setContainerWidth] = useState(0);
+
+  const [isLeftDragging, setIsLeftDragging] = useState(false);
+  const [isRightDragging, setIsRightDragging] = useState(false);
+
+  const [leftBound, setLeftBound] = useState({ left: 0, right: 0 });
+  const [rightBound, setRightBound] = useState({ left: 0, right: 0 });
+
+  const [leftPosition, setLeftPosition] = useState({ x: 0, y: 0 });
+  const [rightPosition, setRightPosition] = useState({ x: 0, y: 0 });
+
+  const oneDay = containerWidth / days;
+
+  const left = leftPosition.x;
+  const leftDay = Math.round(left / oneDay);
+
+  const right = rightPosition.x;
+  const rightDay = Math.round(right / oneDay);
+
+  const startMonthData = months.reduce<{
+    totalDays: number;
+    found: null | { name: string; dayOfMonth: number };
+  }>(
+    (acc, month) => {
+      if (!acc.found && leftDay < acc.totalDays + month.days) {
+        acc.found = {
+          name: month.name,
+          dayOfMonth:
+            month.name === "January"
+              ? leftDay - acc.totalDays - 1
+              : leftDay - acc.totalDays,
+        };
+      }
+      acc.totalDays += month.days;
+      return acc;
+    },
+    { totalDays: 0, found: null },
+  ).found;
+
+  const endMonthData = months.reduce<{
+    totalDays: number;
+    found: null | { name: string; dayOfMonth: number };
+  }>(
+    (acc, month) => {
+      if (!acc.found && rightDay < acc.totalDays + month.days) {
+        acc.found = {
+          name: month.name,
+          dayOfMonth:
+            month.name === "January"
+              ? rightDay - acc.totalDays - 1
+              : rightDay - acc.totalDays,
+        };
+      }
+      acc.totalDays += month.days;
+      return acc;
+    },
+    { totalDays: 0, found: null },
+  ).found;
+
+  const startMonth = months.findIndex(
+    (month) => month.name === startMonthData?.name,
+  );
+  const endMonth = months.findIndex(
+    (month) => month.name === endMonthData?.name,
+  );
+
+  const dragWidth = oneDay;
+
+  const handleDragLeft = useCallback(
+    (_: DraggableEvent, data: DraggableData) => {
+      setIsLeftDragging(true);
+      setLeftPosition((value) => ({ ...value, x: data.x }));
+      setRightBound((value) => ({
+        ...value,
+        left: data.x + dragWidth,
+      }));
+    },
+    [dragWidth],
+  );
+
+  const handleDragRight = useCallback(
+    (_: DraggableEvent, data: DraggableData) => {
+      setIsRightDragging(true);
+      setRightPosition((value) => ({ ...value, x: data.x }));
+      setLeftBound((value) => ({
+        ...value,
+        right: data.x - dragWidth,
+      }));
+    },
+    [dragWidth],
+  );
+
+  const handleStopLeft = () => {
+    setIsLeftDragging(false);
+  };
+
+  const handleStopRight = () => {
+    setIsRightDragging(false);
+  };
+
+  useLayoutEffect(() => {
+    if (ref.current) {
+      const width = ref.current.getBoundingClientRect().width;
+
+      setLeftBound({
+        left: dragWidth,
+        right: width - dragWidth - dragWidth,
+      });
+      setRightBound({
+        left: dragWidth + dragWidth,
+        right: width - dragWidth,
+      });
+
+      setLeftPosition((value) => ({ ...value, x: dragWidth }));
+      setRightPosition((value) => ({ ...value, x: width - dragWidth }));
+
+      setContainerWidth(width);
+    }
+  }, [dragWidth]);
+
+  function getWeeksBetweenDates(
+    startDate: number,
+    endDate: number,
+  ): { start: number; end: number }[] {
+    const weeks: { start: number; end: number }[] = [];
+
+    for (let i = 0; i < 366; i += 7) {
+      const start = i + 1;
+      const end = Math.min(i + 7, 366);
+      weeks.push({ start, end });
+    }
+
+    return weeks.filter(
+      (week) =>
+        (week.start >= startDate && week.start <= endDate) ||
+        (week.end >= startDate && week.end <= endDate) ||
+        (week.start <= startDate && week.end >= endDate),
+    );
+  }
+
+  function getDayAndMonth(dayOfYear: number) {
+    const daysInMonth = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+    let month = 0;
+    let day = dayOfYear;
+
+    while (day > daysInMonth[month]) {
+      day -= daysInMonth[month];
+      month++;
+    }
+
+    return day;
+  }
+
+  const weeksBetweenDates = getWeeksBetweenDates(leftDay, rightDay);
+
   return (
     <div>
       <div className={"flex"}>
@@ -54,7 +218,32 @@ function App() {
           <GButton />
         </div>
 
-        <DatePicker />
+        <DatePicker
+          ref={ref}
+          leftPosition={leftPosition}
+          leftBound={leftBound}
+          containerWidth={containerWidth}
+          days={days}
+          handleDragLeft={handleDragLeft}
+          handleStopLeft={handleStopLeft}
+          setIsLeftDragging={setIsLeftDragging}
+          isLeftDragging={isLeftDragging}
+          startMonthData={startMonthData}
+          dragWidth={dragWidth}
+          rightBound={rightBound}
+          rightPosition={rightPosition}
+          handleDragRight={handleDragRight}
+          handleStopRight={handleStopRight}
+          setIsRightDragging={setIsRightDragging}
+          isRightDragging={isRightDragging}
+          endMonthData={endMonthData}
+          startMonth={startMonth}
+          endMonth={endMonth}
+          weeksBetweenDates={weeksBetweenDates}
+          getDayAndMonth={getDayAndMonth}
+          leftDay={leftDay}
+          rightDay={rightDay}
+        />
       </div>
 
       <Calendars />
