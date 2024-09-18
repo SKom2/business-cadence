@@ -224,6 +224,15 @@ function App() {
     setActiveIndex(null);
   };
 
+  const getToday = () => {
+    const today = new Date();
+    const startOfYear = new Date(today.getFullYear(), 0, 1);
+    const diffInMillis = today.getTime() - startOfYear.getTime();
+    return Math.floor(diffInMillis / (1000 * 60 * 60 * 24)) + 1;
+  };
+
+  const today = getToday();
+
   return (
     <div>
       <div className={"flex"}>
@@ -271,6 +280,7 @@ function App() {
         activeIndex={activeIndex}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        today={today}
       />
     </div>
   );

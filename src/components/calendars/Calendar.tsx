@@ -9,12 +9,14 @@ const Calendar: FC<{
   activeIndex: number | null;
   onMouseEnter: (index: number) => void;
   onMouseLeave: () => void;
+  today: number;
 }> = ({
   calendar,
   weeksBetweenDates,
   activeIndex,
   onMouseEnter,
   onMouseLeave,
+  today,
 }) => {
   const dispatch = useAppDispatch();
 
@@ -87,10 +89,22 @@ const Calendar: FC<{
         {weeksBetweenDates.map((week, index) => (
           <div
             key={`${week.start}${week.end}`}
-            onMouseEnter={() => onMouseEnter(index)}
-            onMouseLeave={onMouseLeave}
-            className={`flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${index === activeIndex ? "bg-[#F9EFFF]" : ""}`}
-          />
+            className={"flex grow relative"}
+          >
+            <div
+              onMouseEnter={() => onMouseEnter(index)}
+              onMouseLeave={onMouseLeave}
+              className={`flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${index === activeIndex ? "bg-[#F9EFFF]" : ""}`}
+            />
+            {today >= week.start && today <= week.end && (
+              <div
+                className={`absolute top-[-25px] bottom-0 bg-[#765CF7] w-px z-10 pointer-events-none`}
+                style={{
+                  left: `${((today - week.start) / (week.end - week.start)) * 100}%`,
+                }}
+              />
+            )}
+          </div>
         ))}
       </div>
     </div>

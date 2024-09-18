@@ -7,6 +7,7 @@ interface Props {
   activeIndex: number | null;
   onMouseEnter: (index: number) => void;
   onMouseLeave: () => void;
+  today: number;
 }
 
 const Calendars = ({
@@ -14,6 +15,7 @@ const Calendars = ({
   activeIndex,
   onMouseEnter,
   onMouseLeave,
+  today,
 }: Props) => {
   const calendars = useAppSelector((state) => state.calendarsReducer.calendars);
   const isLoading = useAppSelector((state) => state.calendarsReducer.isLoading);
@@ -33,6 +35,7 @@ const Calendars = ({
             activeIndex={activeIndex}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
+            today={today}
           />
         ))}
     </div>
