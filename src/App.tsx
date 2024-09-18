@@ -7,6 +7,7 @@ import {
 } from "react";
 import "./App.css";
 import { DatePicker } from "./components/datePicker/datePicker.tsx";
+import GButton from "./components/googleButton/googleButton.tsx";
 import {
   useSession /*, useSessionContext*/,
 } from "@supabase/auth-helpers-react";
