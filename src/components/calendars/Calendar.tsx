@@ -18,6 +18,11 @@ function isDayAfterEvent(date: string) {
   return Math.floor(diffInTime / (24 * 60 * 60 * 1000)) + 1;
 }
 
+function getHoursFromString(isoString: string) {
+  const date = new Date(isoString);
+  return date.getHours();
+}
+
 const Calendar: FC<{
   calendar: ICalendar;
   weeksBetweenDates: { start: number; end: number }[];
@@ -125,15 +130,208 @@ const Calendar: FC<{
 
       {rightDay - leftDay === 1 && (
         <div className={"flex grow"}>
-          {Array.from({ length: 48 }, (_, i) => i + 1).map((hour, index) => (
-            <div key={hour} className={"flex grow relative"}>
+          {Array.from({ length: 24 }, (_, i) => i + 1).map((hour, index) => {
+            const isEventStart = events.find(
+              (event) =>
+                isDayAfterEvent(event.start.dateTime) === leftDay &&
+                getHoursFromString(event.start.dateTime) === hour,
+            );
+
+            const isEventEnd = events.find(
+              (event) =>
+                isDayAfterEvent(event.end.dateTime) === leftDay &&
+                getHoursFromString(event.end.dateTime) === hour,
+            );
+
+            const isEvent = events.find(
+              (event) =>
+                getHoursFromString(event.start.dateTime) <= hour &&
+                getHoursFromString(event.end.dateTime) >= hour &&
+                isDayAfterEvent(event.start.dateTime) <= leftDay &&
+                isDayAfterEvent(event.end.dateTime) >= leftDay,
+            );
+
+            return (
               <div
+                key={hour}
+                className={"flex grow relative"}
                 onMouseEnter={() => onMouseEnter(index)}
                 onMouseLeave={onMouseLeave}
-                className={`flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${!isDragging && index === activeIndex ? "bg-[#F9EFFF]" : ""}`}
-              />
-            </div>
-          ))}
+              >
+                {calendar.selected && (
+                  <>
+                    {isEventStart && !isEventEnd && (
+                      <div
+                        className={`absolute top-1 left-1 bottom-1 right-0 rounded-l-lg`}
+                        style={{
+                          backgroundColor: isEventStart.backgroundColor,
+                        }}
+                      >
+                        <div
+                          style={{
+                            writingMode: "vertical-rl",
+                            transform: "rotate(180deg)",
+                            wordBreak: "break-word",
+                            whiteSpace: "normal",
+                            paddingTop: 6,
+                            height: 119,
+                            zIndex: 1,
+                            overflow: "hidden",
+                            position: "relative",
+                            color: "#fff",
+                            fontSize: 12,
+                          }}
+                        >
+                          {isEventStart.summary}
+                        </div>
+                      </div>
+                    )}
+                    {isEventEnd && !isEventStart && (
+                      <div
+                        className={`absolute top-1 left-0 bottom-1 right-1 rounded-r-lg`}
+                        style={{ backgroundColor: isEventEnd.backgroundColor }}
+                      />
+                    )}
+                    {isEventEnd && isEventStart && (
+                      <div
+                        className={`absolute top-1 left-1 bottom-1 right-1 rounded`}
+                        style={{ backgroundColor: isEventEnd.backgroundColor }}
+                      >
+                        <div
+                          style={{
+                            writingMode: "vertical-rl",
+                            transform: "rotate(180deg)",
+                            wordBreak: "break-word",
+                            whiteSpace: "normal",
+                            paddingTop: 6,
+                            height: 119,
+                            zIndex: 1,
+                            overflow: "hidden",
+                            position: "relative",
+                            color: "#fff",
+                            fontSize: 12,
+                          }}
+                        >
+                          {isEventStart.summary}
+                        </div>
+                      </div>
+                    )}
+                    {!isEventEnd && !isEventStart && isEvent && (
+                      <div
+                        className={`absolute top-1 left-0 bottom-1 right-0`}
+                        style={{ backgroundColor: isEvent.backgroundColor }}
+                      />
+                    )}
+                  </>
+                )}
+
+                <div
+                  className={`flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${!isDragging && index === activeIndex ? "bg-[#F9EFFF]" : ""}`}
+                />
+              </div>
+            );
+          })}
+          {Array.from({ length: 24 }, (_, i) => i + 1).map((hour, index) => {
+            const isEventStart = events.find(
+              (event) =>
+                isDayAfterEvent(event.start.dateTime) === rightDay &&
+                getHoursFromString(event.start.dateTime) === hour,
+            );
+
+            const isEventEnd = events.find(
+              (event) =>
+                isDayAfterEvent(event.end.dateTime) === rightDay &&
+                getHoursFromString(event.end.dateTime) === hour,
+            );
+
+            const isEvent = events.find(
+              (event) =>
+                getHoursFromString(event.start.dateTime) <= hour &&
+                getHoursFromString(event.end.dateTime) >= hour &&
+                isDayAfterEvent(event.start.dateTime) <= rightDay &&
+                isDayAfterEvent(event.end.dateTime) >= rightDay,
+            );
+
+            return (
+              <div
+                key={hour}
+                className={"flex grow relative"}
+                onMouseEnter={() => onMouseEnter(index + 24)}
+                onMouseLeave={onMouseLeave}
+              >
+                {calendar.selected && (
+                  <>
+                    {isEventStart && !isEventEnd && (
+                      <div
+                        className={`absolute top-1 left-1 bottom-1 right-0 rounded-l-lg`}
+                        style={{
+                          backgroundColor: isEventStart.backgroundColor,
+                        }}
+                      >
+                        <div
+                          style={{
+                            writingMode: "vertical-rl",
+                            transform: "rotate(180deg)",
+                            wordBreak: "break-word",
+                            whiteSpace: "normal",
+                            paddingTop: 6,
+                            height: 119,
+                            zIndex: 1,
+                            overflow: "hidden",
+                            position: "relative",
+                            color: "#fff",
+                            fontSize: 12,
+                          }}
+                        >
+                          {isEventStart.summary}
+                        </div>
+                      </div>
+                    )}
+                    {isEventEnd && !isEventStart && (
+                      <div
+                        className={`absolute top-1 left-0 bottom-1 right-1 rounded-r-lg`}
+                        style={{ backgroundColor: isEventEnd.backgroundColor }}
+                      />
+                    )}
+                    {isEventEnd && isEventStart && (
+                      <div
+                        className={`absolute top-1 left-1 bottom-1 right-1 rounded`}
+                        style={{ backgroundColor: isEventEnd.backgroundColor }}
+                      >
+                        <div
+                          style={{
+                            writingMode: "vertical-rl",
+                            transform: "rotate(180deg)",
+                            wordBreak: "break-word",
+                            whiteSpace: "normal",
+                            paddingTop: 6,
+                            height: 119,
+                            zIndex: 1,
+                            overflow: "hidden",
+                            position: "relative",
+                            color: "#fff",
+                            fontSize: 12,
+                          }}
+                        >
+                          {isEventStart.summary}
+                        </div>
+                      </div>
+                    )}
+                    {!isEventEnd && !isEventStart && isEvent && (
+                      <div
+                        className={`absolute top-1 left-0 bottom-1 right-0`}
+                        style={{ backgroundColor: isEvent.backgroundColor }}
+                      />
+                    )}
+                  </>
+                )}
+
+                <div
+                  className={`flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${!isDragging && index + 24 === activeIndex ? "bg-[#F9EFFF]" : ""}`}
+                />
+              </div>
+            );
+          })}
         </div>
       )}
 
@@ -142,21 +340,107 @@ const Calendar: FC<{
           {Array.from(
             { length: rightDay + 1 - leftDay },
             (_, i) => i + leftDay,
-          ).map((day, index) => (
-            <div key={day} className={"flex grow relative"}>
+          ).map((day, index) => {
+            const isEventStart = events.find(
+              (event) => isDayAfterEvent(event.start.dateTime) === day,
+            );
+
+            const isEventEnd = events.find(
+              (event) => isDayAfterEvent(event.end.dateTime) === day,
+            );
+
+            const isEvent = events.find(
+              (event) =>
+                isDayAfterEvent(event.start.dateTime) <= day &&
+                isDayAfterEvent(event.end.dateTime) >= day,
+            );
+
+            return (
               <div
+                key={day}
+                className={"flex grow relative"}
                 onMouseEnter={() => onMouseEnter(index)}
                 onMouseLeave={onMouseLeave}
-                className={`flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${!isDragging && index === activeIndex ? "bg-[#F9EFFF]" : ""}`}
-              />
-              {today === day && (
+              >
+                {calendar.selected && (
+                  <>
+                    {isEventStart && !isEventEnd && (
+                      <div
+                        className={`absolute top-1 left-1 bottom-1 right-0 rounded-l-lg`}
+                        style={{
+                          backgroundColor: isEventStart.backgroundColor,
+                        }}
+                      >
+                        <div
+                          style={{
+                            writingMode: "vertical-rl",
+                            transform: "rotate(180deg)",
+                            wordBreak: "break-word",
+                            whiteSpace: "normal",
+                            paddingTop: 6,
+                            height: 119,
+                            zIndex: 1,
+                            overflow: "hidden",
+                            position: "relative",
+                            color: "#fff",
+                            fontSize: 12,
+                          }}
+                        >
+                          {isEventStart.summary}
+                        </div>
+                      </div>
+                    )}
+                    {isEventEnd && !isEventStart && (
+                      <div
+                        className={`absolute top-1 left-0 bottom-1 right-1 rounded-r-lg`}
+                        style={{ backgroundColor: isEventEnd.backgroundColor }}
+                      />
+                    )}
+                    {isEventEnd && isEventStart && (
+                      <div
+                        className={`absolute top-1 left-1 bottom-1 right-1 rounded`}
+                        style={{ backgroundColor: isEventEnd.backgroundColor }}
+                      >
+                        <div
+                          style={{
+                            writingMode: "vertical-rl",
+                            transform: "rotate(180deg)",
+                            wordBreak: "break-word",
+                            whiteSpace: "normal",
+                            paddingTop: 6,
+                            height: 119,
+                            zIndex: 1,
+                            overflow: "hidden",
+                            position: "relative",
+                            color: "#fff",
+                            fontSize: 12,
+                          }}
+                        >
+                          {isEventStart.summary}
+                        </div>
+                      </div>
+                    )}
+                    {!isEventEnd && !isEventStart && isEvent && (
+                      <div
+                        className={`absolute top-1 left-0 bottom-1 right-0`}
+                        style={{ backgroundColor: isEvent.backgroundColor }}
+                      />
+                    )}
+                  </>
+                )}
+
                 <div
-                  className={`absolute top-[-25px] bottom-0 bg-[#765CF7] w-px z-10 pointer-events-none`}
-                  style={{ left: `50%` }}
+                  className={`flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${!isDragging && index === activeIndex ? "bg-[#F9EFFF]" : ""}`}
                 />
-              )}
-            </div>
-          ))}
+                {today === day && (
+                  <div
+                    className={`absolute top-[-25px] bottom-0 bg-[#765CF7] w-px z-10 pointer-events-none`}
+                    style={{ left: `50%` }}
+                  />
+                )}
+              </div>
+            );
+          })}
         </div>
       )}
 

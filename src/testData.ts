@@ -37,6 +37,62 @@ export const testCalendarData: ICalendarList = {
       summary: "YouTrack Team",
       events: [
         {
+          id: "2-0",
+          summary: "Gathering",
+          backgroundColor: "#DB3D49",
+          calendarId: "2",
+          created: "",
+          creator: { email: "", displayName: "", self: false },
+          description: "",
+          start: {
+            dateTime: "2024-01-01T15:00:00+00:00",
+            timeZone: "Asia/Nicosia",
+          },
+          end: {
+            dateTime: "2024-01-01T17:00:00+00:00",
+            timeZone: "Asia/Nicosia",
+          },
+          etag: "",
+          eventType: "",
+          htmlLink: "",
+          iCalUID: "",
+          kind: "",
+          organizer: { email: "", displayName: "", self: false },
+          sequence: 0,
+          status: "",
+          transparency: "",
+          updated: "",
+          visibility: "",
+        },
+        {
+          id: "2-0",
+          summary: "Release",
+          backgroundColor: "#DB3D49",
+          calendarId: "2",
+          created: "",
+          creator: { email: "", displayName: "", self: false },
+          description: "",
+          start: {
+            dateTime: "2024-01-01T09:00:00+00:00",
+            timeZone: "Asia/Nicosia",
+          },
+          end: {
+            dateTime: "2024-01-01T11:00:00+00:00",
+            timeZone: "Asia/Nicosia",
+          },
+          etag: "",
+          eventType: "",
+          htmlLink: "",
+          iCalUID: "",
+          kind: "",
+          organizer: { email: "", displayName: "", self: false },
+          sequence: 0,
+          status: "",
+          transparency: "",
+          updated: "",
+          visibility: "",
+        },
+        {
           id: "2-1",
           summary: "Gathering",
           backgroundColor: "#DB3D49",
@@ -45,11 +101,11 @@ export const testCalendarData: ICalendarList = {
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-01-15T15:00:00+03:00",
+            dateTime: "2024-01-15T15:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-01-20T17:00:00+03:00",
+            dateTime: "2024-01-20T17:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -73,11 +129,11 @@ export const testCalendarData: ICalendarList = {
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-03-18T15:00:00+03:00",
+            dateTime: "2024-03-18T15:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-04-07T17:00:00+03:00",
+            dateTime: "2024-04-07T17:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -101,11 +157,11 @@ export const testCalendarData: ICalendarList = {
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-06-18T15:00:00+03:00",
+            dateTime: "2024-06-18T15:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-06-24T17:00:00+03:00",
+            dateTime: "2024-06-24T17:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -129,11 +185,11 @@ export const testCalendarData: ICalendarList = {
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-07-22T15:00:00+03:00",
+            dateTime: "2024-07-22T15:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-08-04T17:00:00+03:00",
+            dateTime: "2024-08-04T17:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -176,11 +232,11 @@ export const testCalendarData: ICalendarList = {
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-01-22T15:00:00+03:00",
+            dateTime: "2024-01-22T15:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-02-04T17:00:00+03:00",
+            dateTime: "2024-02-04T17:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -204,11 +260,11 @@ export const testCalendarData: ICalendarList = {
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-03-04T15:00:00+03:00",
+            dateTime: "2024-03-04T15:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-03-10T17:00:00+03:00",
+            dateTime: "2024-03-10T17:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -232,11 +288,11 @@ export const testCalendarData: ICalendarList = {
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-04-08T15:00:00+03:00",
+            dateTime: "2024-04-08T15:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-04-14T17:00:00+03:00",
+            dateTime: "2024-04-14T17:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -260,11 +316,11 @@ export const testCalendarData: ICalendarList = {
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-04-22T15:00:00+03:00",
+            dateTime: "2024-04-22T15:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-04-28T17:00:00+03:00",
+            dateTime: "2024-04-28T17:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -288,11 +344,11 @@ export const testCalendarData: ICalendarList = {
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-06-11T15:00:00+03:00",
+            dateTime: "2024-06-11T15:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-06-17T17:00:00+03:00",
+            dateTime: "2024-06-17T17:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -353,6 +409,34 @@ export const testCalendarData: ICalendarList = {
       events: [
         {
           id: "1-9",
+          summary: "Meeting",
+          backgroundColor: "#6BBCFF",
+          calendarId: "3",
+          created: "",
+          creator: { email: "", displayName: "", self: false },
+          description: "",
+          start: {
+            dateTime: "2024-01-02T09:00:00+00:00",
+            timeZone: "Asia/Nicosia",
+          },
+          end: {
+            dateTime: "2024-01-02T11:00:00+00:00",
+            timeZone: "Asia/Nicosia",
+          },
+          etag: "",
+          eventType: "",
+          htmlLink: "",
+          iCalUID: "",
+          kind: "",
+          organizer: { email: "", displayName: "", self: false },
+          sequence: 0,
+          status: "",
+          transparency: "",
+          updated: "",
+          visibility: "",
+        },
+        {
+          id: "1-9",
           summary: "Team Strategy Meeting",
           backgroundColor: "#6BBCFF",
           calendarId: "3",
@@ -360,11 +444,11 @@ export const testCalendarData: ICalendarList = {
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-03-10T09:00:00+03:00",
+            dateTime: "2024-03-10T09:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-03-31T11:00:00+03:00",
+            dateTime: "2024-03-31T11:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -388,11 +472,11 @@ export const testCalendarData: ICalendarList = {
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-04-21T10:00:00+03:00",
+            dateTime: "2024-04-21T10:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-04-28T14:00:00+03:00",
+            dateTime: "2024-04-28T14:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -416,11 +500,11 @@ export const testCalendarData: ICalendarList = {
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-07-01T08:00:00+03:00",
+            dateTime: "2024-07-01T08:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-08-04T18:00:00+03:00",
+            dateTime: "2024-08-04T18:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -444,11 +528,11 @@ export const testCalendarData: ICalendarList = {
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-09-05T13:00:00+03:00",
+            dateTime: "2024-09-05T13:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-09-15T15:00:00+03:00",
+            dateTime: "2024-09-15T15:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -472,11 +556,11 @@ export const testCalendarData: ICalendarList = {
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-12-02T09:00:00+03:00",
+            dateTime: "2024-12-02T09:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-12-22T12:00:00+03:00",
+            dateTime: "2024-12-22T12:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -507,23 +591,23 @@ export const testCalendarData: ICalendarList = {
       foregroundColor: "",
       kind: "calendar#calendar",
       selected: true,
-      summary: "JetBrains Events",
+      summary: "Public Holidays",
       timeZone: "",
       events: [
         {
           id: "12-1",
-          summary: "New Year Celebration",
+          summary: "New Year Celebr...",
           backgroundColor: "#8650FF",
           calendarId: "3",
           created: "",
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-01-02T00:00:00+03:00",
+            dateTime: "2024-01-01T10:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-01-02T00:00:00+03:00",
+            dateTime: "2024-01-01T22:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -547,11 +631,11 @@ export const testCalendarData: ICalendarList = {
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-02-12T00:00:00+03:00",
+            dateTime: "2024-02-12T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-02-18T00:00:00+03:00",
+            dateTime: "2024-02-18T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -575,11 +659,11 @@ export const testCalendarData: ICalendarList = {
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-03-08T00:00:00+03:00",
+            dateTime: "2024-03-08T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-03-09T00:00:00+03:00",
+            dateTime: "2024-03-09T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -603,11 +687,11 @@ export const testCalendarData: ICalendarList = {
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-04-01T00:00:00+03:00",
+            dateTime: "2024-04-01T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-04-07T00:00:00+03:00",
+            dateTime: "2024-04-07T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -631,11 +715,11 @@ export const testCalendarData: ICalendarList = {
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-05-01T00:00:00+03:00",
+            dateTime: "2024-05-01T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-05-02T00:00:00+03:00",
+            dateTime: "2024-05-02T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -659,11 +743,11 @@ export const testCalendarData: ICalendarList = {
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-06-21T00:00:00+03:00",
+            dateTime: "2024-06-21T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-06-22T00:00:00+03:00",
+            dateTime: "2024-06-22T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -687,11 +771,11 @@ export const testCalendarData: ICalendarList = {
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-07-04T00:00:00+03:00",
+            dateTime: "2024-07-04T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-07-05T00:00:00+03:00",
+            dateTime: "2024-07-05T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -715,11 +799,11 @@ export const testCalendarData: ICalendarList = {
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-08-01T00:00:00+03:00",
+            dateTime: "2024-08-01T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-08-15T00:00:00+03:00",
+            dateTime: "2024-08-15T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -743,11 +827,11 @@ export const testCalendarData: ICalendarList = {
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-10-10T00:00:00+03:00",
+            dateTime: "2024-10-10T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-10-15T00:00:00+03:00",
+            dateTime: "2024-10-15T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -771,11 +855,11 @@ export const testCalendarData: ICalendarList = {
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-10-31T00:00:00+03:00",
+            dateTime: "2024-10-31T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-11-01T00:00:00+03:00",
+            dateTime: "2024-11-01T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -799,11 +883,11 @@ export const testCalendarData: ICalendarList = {
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-11-29T00:00:00+03:00",
+            dateTime: "2024-11-29T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-11-30T00:00:00+03:00",
+            dateTime: "2024-11-30T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -827,11 +911,11 @@ export const testCalendarData: ICalendarList = {
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-12-31T00:00:00+03:00",
+            dateTime: "2024-12-31T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2025-01-01T00:00:00+03:00",
+            dateTime: "2024-12-31T22:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -874,11 +958,11 @@ export const testCalendarData: ICalendarList = {
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-01-05T00:00:00+03:00",
+            dateTime: "2024-01-05T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-01-12T00:00:00+03:00",
+            dateTime: "2024-01-12T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -902,11 +986,11 @@ export const testCalendarData: ICalendarList = {
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-02-01T00:00:00+03:00",
+            dateTime: "2024-02-01T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-02-07T00:00:00+03:00",
+            dateTime: "2024-02-07T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -930,11 +1014,11 @@ export const testCalendarData: ICalendarList = {
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-07-05T00:00:00+03:00",
+            dateTime: "2024-07-05T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-07-12T00:00:00+03:00",
+            dateTime: "2024-07-12T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -958,11 +1042,11 @@ export const testCalendarData: ICalendarList = {
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-08-10T00:00:00+03:00",
+            dateTime: "2024-08-10T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-08-17T00:00:00+03:00",
+            dateTime: "2024-08-17T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -986,11 +1070,11 @@ export const testCalendarData: ICalendarList = {
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-09-20T00:00:00+03:00",
+            dateTime: "2024-09-20T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-09-30T00:00:00+03:00",
+            dateTime: "2024-09-30T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -1014,11 +1098,11 @@ export const testCalendarData: ICalendarList = {
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-12-10T00:00:00+03:00",
+            dateTime: "2024-12-10T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-12-17T00:00:00+03:00",
+            dateTime: "2024-12-17T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -1061,11 +1145,11 @@ export const testCalendarData: ICalendarList = {
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-03-15T00:00:00+03:00",
+            dateTime: "2024-03-15T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-03-17T00:00:00+03:00",
+            dateTime: "2024-03-17T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -1089,11 +1173,11 @@ export const testCalendarData: ICalendarList = {
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-05-10T00:00:00+03:00",
+            dateTime: "2024-05-10T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-05-12T00:00:00+03:00",
+            dateTime: "2024-05-12T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -1117,11 +1201,11 @@ export const testCalendarData: ICalendarList = {
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-06-22T00:00:00+03:00",
+            dateTime: "2024-06-22T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-06-23T00:00:00+03:00",
+            dateTime: "2024-06-23T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -1145,11 +1229,11 @@ export const testCalendarData: ICalendarList = {
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-08-05T00:00:00+03:00",
+            dateTime: "2024-08-05T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-08-05T23:59:00+03:00",
+            dateTime: "2024-08-05T23:59:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -1173,11 +1257,11 @@ export const testCalendarData: ICalendarList = {
           creator: { email: "", displayName: "", self: false },
           description: "",
           start: {
-            dateTime: "2024-12-24T00:00:00+03:00",
+            dateTime: "2024-12-24T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-12-26T00:00:00+03:00",
+            dateTime: "2024-12-26T00:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -1224,11 +1308,11 @@ export const testCalendarData: ICalendarList = {
           },
           description: "",
           start: {
-            dateTime: "2024-01-01T10:00:00+03:00",
+            dateTime: "2024-01-01T10:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-01-01T11:00:00+03:00",
+            dateTime: "2024-01-01T11:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -1260,11 +1344,11 @@ export const testCalendarData: ICalendarList = {
           },
           description: "",
           start: {
-            dateTime: "2024-01-15T10:00:00+03:00",
+            dateTime: "2024-01-15T10:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-01-15T11:00:00+03:00",
+            dateTime: "2024-01-15T11:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -1296,11 +1380,11 @@ export const testCalendarData: ICalendarList = {
           },
           description: "",
           start: {
-            dateTime: "2024-01-29T10:00:00+03:00",
+            dateTime: "2024-01-29T10:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-01-29T11:00:00+03:00",
+            dateTime: "2024-01-29T11:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -1332,11 +1416,11 @@ export const testCalendarData: ICalendarList = {
           },
           description: "",
           start: {
-            dateTime: "2024-02-12T10:00:00+03:00",
+            dateTime: "2024-02-12T10:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-02-12T11:00:00+03:00",
+            dateTime: "2024-02-12T11:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -1368,11 +1452,11 @@ export const testCalendarData: ICalendarList = {
           },
           description: "",
           start: {
-            dateTime: "2024-02-26T10:00:00+03:00",
+            dateTime: "2024-02-26T10:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-02-26T11:00:00+03:00",
+            dateTime: "2024-02-26T11:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -1404,11 +1488,11 @@ export const testCalendarData: ICalendarList = {
           },
           description: "",
           start: {
-            dateTime: "2024-03-11T10:00:00+03:00",
+            dateTime: "2024-03-11T10:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-03-11T11:00:00+03:00",
+            dateTime: "2024-03-11T11:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -1440,11 +1524,11 @@ export const testCalendarData: ICalendarList = {
           },
           description: "",
           start: {
-            dateTime: "2024-03-25T10:00:00+03:00",
+            dateTime: "2024-03-25T10:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-03-25T11:00:00+03:00",
+            dateTime: "2024-03-25T11:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -1476,11 +1560,11 @@ export const testCalendarData: ICalendarList = {
           },
           description: "",
           start: {
-            dateTime: "2024-04-08T10:00:00+03:00",
+            dateTime: "2024-04-08T10:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-04-08T11:00:00+03:00",
+            dateTime: "2024-04-08T11:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -1512,11 +1596,11 @@ export const testCalendarData: ICalendarList = {
           },
           description: "",
           start: {
-            dateTime: "2024-04-22T10:00:00+03:00",
+            dateTime: "2024-04-22T10:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-04-22T11:00:00+03:00",
+            dateTime: "2024-04-22T11:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -1548,11 +1632,11 @@ export const testCalendarData: ICalendarList = {
           },
           description: "",
           start: {
-            dateTime: "2024-05-06T10:00:00+03:00",
+            dateTime: "2024-05-06T10:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-05-06T11:00:00+03:00",
+            dateTime: "2024-05-06T11:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -1584,11 +1668,11 @@ export const testCalendarData: ICalendarList = {
           },
           description: "",
           start: {
-            dateTime: "2024-05-20T10:00:00+03:00",
+            dateTime: "2024-05-20T10:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-05-20T11:00:00+03:00",
+            dateTime: "2024-05-20T11:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -1620,11 +1704,11 @@ export const testCalendarData: ICalendarList = {
           },
           description: "",
           start: {
-            dateTime: "2024-06-03T10:00:00+03:00",
+            dateTime: "2024-06-03T10:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-06-03T11:00:00+03:00",
+            dateTime: "2024-06-03T11:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -1656,11 +1740,11 @@ export const testCalendarData: ICalendarList = {
           },
           description: "",
           start: {
-            dateTime: "2024-06-17T10:00:00+03:00",
+            dateTime: "2024-06-17T10:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-06-17T11:00:00+03:00",
+            dateTime: "2024-06-17T11:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -1692,11 +1776,11 @@ export const testCalendarData: ICalendarList = {
           },
           description: "",
           start: {
-            dateTime: "2024-07-01T10:00:00+03:00",
+            dateTime: "2024-07-01T10:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-07-01T11:00:00+03:00",
+            dateTime: "2024-07-01T11:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -1728,11 +1812,11 @@ export const testCalendarData: ICalendarList = {
           },
           description: "",
           start: {
-            dateTime: "2024-07-15T10:00:00+03:00",
+            dateTime: "2024-07-15T10:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-07-15T11:00:00+03:00",
+            dateTime: "2024-07-15T11:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -1764,11 +1848,11 @@ export const testCalendarData: ICalendarList = {
           },
           description: "",
           start: {
-            dateTime: "2024-07-29T10:00:00+03:00",
+            dateTime: "2024-07-29T10:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-07-29T11:00:00+03:00",
+            dateTime: "2024-07-29T11:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -1800,11 +1884,11 @@ export const testCalendarData: ICalendarList = {
           },
           description: "",
           start: {
-            dateTime: "2024-08-12T10:00:00+03:00",
+            dateTime: "2024-08-12T10:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-08-12T11:00:00+03:00",
+            dateTime: "2024-08-12T11:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -1836,11 +1920,11 @@ export const testCalendarData: ICalendarList = {
           },
           description: "",
           start: {
-            dateTime: "2024-08-26T10:00:00+03:00",
+            dateTime: "2024-08-26T10:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-08-26T11:00:00+03:00",
+            dateTime: "2024-08-26T11:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -1872,11 +1956,11 @@ export const testCalendarData: ICalendarList = {
           },
           description: "",
           start: {
-            dateTime: "2024-09-09T10:00:00+03:00",
+            dateTime: "2024-09-09T10:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-09-09T11:00:00+03:00",
+            dateTime: "2024-09-09T11:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -1908,11 +1992,11 @@ export const testCalendarData: ICalendarList = {
           },
           description: "",
           start: {
-            dateTime: "2024-09-23T10:00:00+03:00",
+            dateTime: "2024-09-23T10:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-09-23T11:00:00+03:00",
+            dateTime: "2024-09-23T11:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -1944,11 +2028,11 @@ export const testCalendarData: ICalendarList = {
           },
           description: "",
           start: {
-            dateTime: "2024-10-07T10:00:00+03:00",
+            dateTime: "2024-10-07T10:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-10-07T11:00:00+03:00",
+            dateTime: "2024-10-07T11:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -1980,11 +2064,11 @@ export const testCalendarData: ICalendarList = {
           },
           description: "",
           start: {
-            dateTime: "2024-10-21T10:00:00+03:00",
+            dateTime: "2024-10-21T10:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-10-21T11:00:00+03:00",
+            dateTime: "2024-10-21T11:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -2016,11 +2100,11 @@ export const testCalendarData: ICalendarList = {
           },
           description: "",
           start: {
-            dateTime: "2024-11-04T10:00:00+03:00",
+            dateTime: "2024-11-04T10:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-11-04T11:00:00+03:00",
+            dateTime: "2024-11-04T11:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -2052,11 +2136,11 @@ export const testCalendarData: ICalendarList = {
           },
           description: "",
           start: {
-            dateTime: "2024-11-18T10:00:00+03:00",
+            dateTime: "2024-11-18T10:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-11-18T11:00:00+03:00",
+            dateTime: "2024-11-18T11:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -2088,11 +2172,11 @@ export const testCalendarData: ICalendarList = {
           },
           description: "",
           start: {
-            dateTime: "2024-12-02T10:00:00+03:00",
+            dateTime: "2024-12-02T10:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-12-02T11:00:00+03:00",
+            dateTime: "2024-12-02T11:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
@@ -2124,11 +2208,11 @@ export const testCalendarData: ICalendarList = {
           },
           description: "",
           start: {
-            dateTime: "2024-12-16T10:00:00+03:00",
+            dateTime: "2024-12-16T10:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           end: {
-            dateTime: "2024-12-16T11:00:00+03:00",
+            dateTime: "2024-12-16T11:00:00+00:00",
             timeZone: "Asia/Nicosia",
           },
           etag: "",
