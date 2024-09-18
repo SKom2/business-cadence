@@ -98,17 +98,18 @@ const DatePickerComponent = forwardRef<HTMLDivElement, Props>(
           </Draggable>
 
           <div className={"flex grow border-b border-[#828282]"}>
-            {months.map((month, index) => (
+            {months.map((month) => (
               <div
                 key={month.name}
                 className={"flex-1 flex flex-col"}
                 style={{ flexGrow: month.days }}
               >
-                <div className={"border-b border-[#828282] border-r p-1"}>
-                  <div className={"text-[8px] font-bold text-gray-500"}>
-                    {index + 1}
-                  </div>
-                  <div className={"text-sm"}>{month.name}</div>
+                <div
+                  className={
+                    "border-b border-[#828282] border-r p-1 relative h-[25px] overflow-hidden"
+                  }
+                >
+                  <div className={"text-sm absolute left-1"}>{month.name}</div>
                 </div>
 
                 <div className={"flex grow h-6"}>
@@ -155,10 +156,14 @@ const DatePickerComponent = forwardRef<HTMLDivElement, Props>(
           {months.slice(startMonth, endMonth + 1).map((month) => (
             <div
               key={month.name}
-              className={"flex flex-1 border-r border-[#828282] p-1"}
+              className={
+                "flex flex-1 border-r border-[#828282] p-1 relative overflow-hidden"
+              }
               style={{ flexGrow: month.days }}
             >
-              <div className={"self-end text-[10px]"}>{month.name}</div>
+              <div className={"self-end text-[10px] absolute left-1"}>
+                {month.name}
+              </div>
             </div>
           ))}
         </div>
@@ -174,10 +179,12 @@ const DatePickerComponent = forwardRef<HTMLDivElement, Props>(
                   key={`${leftDay}${rightDay}`}
                   onMouseEnter={() => onMouseEnter(index)}
                   onMouseLeave={onMouseLeave}
-                  className={`flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${index === activeIndex ? "bg-[#E4DEFD]" : ""}`}
+                  className={`whitespace-nowrap relative overflow-hidden flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${index === activeIndex ? "bg-[#E4DEFD]" : ""}`}
                 >
-                  {start === end && start}
-                  {start !== end && `${start}-${end}`}
+                  <div className={"absolute"}>
+                    {start === end && start}
+                    {start !== end && `${start}-${end}`}
+                  </div>
                 </div>
               );
             }
@@ -191,10 +198,12 @@ const DatePickerComponent = forwardRef<HTMLDivElement, Props>(
                   key={`${leftDay}${week.end}`}
                   onMouseEnter={() => onMouseEnter(index)}
                   onMouseLeave={onMouseLeave}
-                  className={`flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${index === activeIndex ? "bg-[#E4DEFD]" : ""}`}
+                  className={`whitespace-nowrap relative overflow-hidden flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${index === activeIndex ? "bg-[#E4DEFD]" : ""}`}
                 >
-                  {start === end && start}
-                  {start !== end && `${start}-${end}`}
+                  <div className={"absolute"}>
+                    {start === end && start}
+                    {start !== end && `${start}-${end}`}
+                  </div>
                 </div>
               );
             }
@@ -208,10 +217,12 @@ const DatePickerComponent = forwardRef<HTMLDivElement, Props>(
                   key={`${week.start}${rightDay}`}
                   onMouseEnter={() => onMouseEnter(index)}
                   onMouseLeave={onMouseLeave}
-                  className={`flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${index === activeIndex ? "bg-[#E4DEFD]" : ""}`}
+                  className={`whitespace-nowrap relative overflow-hidden flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${index === activeIndex ? "bg-[#E4DEFD]" : ""}`}
                 >
-                  {start === end && start}
-                  {start !== end && `${start}-${end}`}
+                  <div className={"absolute"}>
+                    {start === end && start}
+                    {start !== end && `${start}-${end}`}
+                  </div>
                 </div>
               );
             }
@@ -221,9 +232,11 @@ const DatePickerComponent = forwardRef<HTMLDivElement, Props>(
                 key={`${week.start}${week.end}`}
                 onMouseEnter={() => onMouseEnter(index)}
                 onMouseLeave={onMouseLeave}
-                className={`flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${index === activeIndex ? "bg-[#E4DEFD]" : ""}`}
+                className={`relative overflow-hidden flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${index === activeIndex ? "bg-[#E4DEFD]" : ""}`}
               >
-                {getDayAndMonth(week.start)}-{getDayAndMonth(week.end)}
+                <div className={"absolute"}>
+                  {getDayAndMonth(week.start)}-{getDayAndMonth(week.end)}
+                </div>
               </div>
             );
           })}
@@ -232,5 +245,4 @@ const DatePickerComponent = forwardRef<HTMLDivElement, Props>(
     );
   },
 );
-
 export const DatePicker = memo(DatePickerComponent);

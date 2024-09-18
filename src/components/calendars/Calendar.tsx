@@ -30,7 +30,6 @@ const Calendar: FC<{
     >
       <div className={"flex items-start w-48 border-r border-[#828282] p-2.5"}>
         <div className={"flex gap-2 items-center truncate"}>
-          {/*hideable value should be specified here */}
           <button
             className={"rounded"}
             onClick={onClick}
