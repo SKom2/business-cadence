@@ -56,7 +56,6 @@ const Calendar: FC<{
   };
 
   const monthsSlice = months.slice(startMonth, endMonth + 1);
-
   return (
     <div
       className={`flex border-b border-[#CBCBCB] ${!calendar.selected ? "" : "h-32"}`}
@@ -151,8 +150,7 @@ const Calendar: FC<{
               />
               {today === day && (
                 <div
-                  className={`absolute top-[-25px] bottom-0 bg-[#765CF7] w-px z-10 pointer-events-none`}
-                  style={{ left: `50%` }}
+                  className={`absolute w-[calc(100%-1px)] left-0 top-0 bottom-0 z-10 pointer-events-none ${!isDragging && index === activeIndex ? "bg-[#E9E5FD]" : "bg-[#E4DEFD]"}`}
                 />
               )}
             </div>
@@ -255,7 +253,7 @@ const Calendar: FC<{
                   </>
                 )}
                 <div
-                  className={`flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${!isDragging && index === activeIndex ? "bg-[#F9EFFF]" : ""}`}
+                  className={`absolute w-[calc(100%-1px)] left-0 top-0 bottom-0 hover:bg-black pointer-events-none ${!isDragging && index === activeIndex ? "bg-[#E9E5FD]" : "bg-[#E4DEFD]"} `}
                 />
                 {today >= week.start && today <= week.end && (
                   <div
