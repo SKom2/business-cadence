@@ -22,8 +22,6 @@ import { months } from "./months.ts";
 import { DraggableData, DraggableEvent } from "react-draggable";
 import useResizeObserver from "@react-hook/resize-observer";
 import { ICalendarEvent } from "./services/redux/calendars/calendars.types.ts";
-import { FullScreen, useFullScreenHandle } from "react-full-screen";
-import FullScreenIcon from "./assets/FullScreenIcon.tsx";
 
 const days = months.reduce((acc, item) => {
   return acc + item.days;
@@ -31,8 +29,6 @@ const days = months.reduce((acc, item) => {
 
 function App() {
   const session = useSession();
-  // const { isLoading } = useSessionContext();
-  const handle = useFullScreenHandle();
 
   const dispatch = useAppDispatch();
 
@@ -265,81 +261,75 @@ function App() {
 
   return (
     <div>
-      <button onClick={handle.enter} className="absolute bottom-6 right-6 z-20 p-2 bg-blue-500 rounded transition hover:bg-blue-700">
-        <FullScreenIcon />
-      </button>
-
-      <FullScreen handle={handle} className="bg-white">
-        <div className={"flex"}>
-          <div
-            className={
-              "w-[43px] border-r border-b border-r-[#828282] border-b-[#D2C9DE] justify-center items-center md:w-48 overflow-hidden p-2.5 text-white"
-            }
-            style={{ backgroundColor: hoveredEvent?.backgroundColor }}
-          >
-            <div className={"hidden md:block"}>{hoveredEvent?.longSummary}</div>
-            <div>
-              {formatDate(hoveredEvent?.start.dateTime) ===
-                formatDate(hoveredEvent?.end.dateTime) &&
-                formatDate(hoveredEvent?.start.dateTime)}
-              {formatDate(hoveredEvent?.start.dateTime) !==
-                formatDate(hoveredEvent?.end.dateTime) && (
-                  <>
-                    {formatDate(hoveredEvent?.start.dateTime)} -{" "}
-                    {formatDate(hoveredEvent?.end.dateTime)}
-                  </>
-                )}
-            </div>
+      <div className={"flex"}>
+        <div
+          className={
+            "w-[43px] border-r border-b border-r-[#828282] border-b-[#D2C9DE] justify-center items-center md:w-48 overflow-hidden p-2.5 text-white"
+          }
+          style={{ backgroundColor: hoveredEvent?.backgroundColor }}
+        >
+          <div className={"hidden md:block"}>{hoveredEvent?.longSummary}</div>
+          <div>
+            {formatDate(hoveredEvent?.start.dateTime) ===
+              formatDate(hoveredEvent?.end.dateTime) &&
+              formatDate(hoveredEvent?.start.dateTime)}
+            {formatDate(hoveredEvent?.start.dateTime) !==
+              formatDate(hoveredEvent?.end.dateTime) && (
+                <>
+                  {formatDate(hoveredEvent?.start.dateTime)} -{" "}
+                  {formatDate(hoveredEvent?.end.dateTime)}
+                </>
+              )}
           </div>
-
-          <DatePicker
-            ref={ref}
-            leftPosition={leftPosition}
-            leftBound={leftBound}
-            containerWidth={containerWidth}
-            days={days}
-            handleDragLeft={handleDragLeft}
-            handleStopLeft={handleStopLeft}
-            setIsLeftDragging={setIsLeftDragging}
-            isLeftDragging={isLeftDragging}
-            startMonthData={startMonthData}
-            dragWidth={dragWidth}
-            rightBound={rightBound}
-            rightPosition={rightPosition}
-            handleDragRight={handleDragRight}
-            handleStopRight={handleStopRight}
-            setIsRightDragging={setIsRightDragging}
-            isRightDragging={isRightDragging}
-            endMonthData={endMonthData}
-            startMonth={startMonth}
-            endMonth={endMonth}
-            weeksBetweenDates={weeksBetweenDates}
-            getDayAndMonth={getDayAndMonth}
-            leftDay={leftDay}
-            rightDay={rightDay}
-            activeIndex={activeIndex}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-            isDragging={isLeftDragging || isRightDragging}
-            today={today}
-          />
         </div>
 
-        <Calendars
+        <DatePicker
+          ref={ref}
+          leftPosition={leftPosition}
+          leftBound={leftBound}
+          containerWidth={containerWidth}
+          days={days}
+          handleDragLeft={handleDragLeft}
+          handleStopLeft={handleStopLeft}
+          setIsLeftDragging={setIsLeftDragging}
+          isLeftDragging={isLeftDragging}
+          startMonthData={startMonthData}
+          dragWidth={dragWidth}
+          rightBound={rightBound}
+          rightPosition={rightPosition}
+          handleDragRight={handleDragRight}
+          handleStopRight={handleStopRight}
+          setIsRightDragging={setIsRightDragging}
+          isRightDragging={isRightDragging}
+          endMonthData={endMonthData}
+          startMonth={startMonth}
+          endMonth={endMonth}
           weeksBetweenDates={weeksBetweenDates}
+          getDayAndMonth={getDayAndMonth}
+          leftDay={leftDay}
+          rightDay={rightDay}
           activeIndex={activeIndex}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
-          today={today}
           isDragging={isLeftDragging || isRightDragging}
-          startMonth={startMonth}
-          endMonth={endMonth}
-          leftDay={leftDay}
-          rightDay={rightDay}
-          onEventEnter={onEventEnter}
-          onEventLeave={onEventLeave}
+          today={today}
         />
-      </FullScreen>
+      </div>
+
+      <Calendars
+        weeksBetweenDates={weeksBetweenDates}
+        activeIndex={activeIndex}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        today={today}
+        isDragging={isLeftDragging || isRightDragging}
+        startMonth={startMonth}
+        endMonth={endMonth}
+        leftDay={leftDay}
+        rightDay={rightDay}
+        onEventEnter={onEventEnter}
+        onEventLeave={onEventLeave}
+      />
     </div>
   );
 }
