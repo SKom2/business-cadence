@@ -273,7 +273,7 @@ function App() {
         >
           {!hoveredEvent && (
             <div
-              className={"flex gap-2 items-center mt-auto"}
+              className={"flex gap-2 items-center mt-auto group"}
               onClick={() => {
                 setExpandAll((value) => {
                   dispatch(toggleCalendarsVisibility(!value));
@@ -284,7 +284,7 @@ function App() {
             >
               <div
                 className={
-                  "rounded bg-[#cdcdcd] w-[24px] h-[24px] border border-transparent hover:border-[#828282] hover:opacity-80"
+                  "rounded bg-[#cdcdcd] w-[24px] h-[24px] border border-transparent group-hover:border-[#828282] group-hover:opacity-80"
                 }
               >
                 {!expandAll && (
