@@ -75,12 +75,14 @@ const Calendar: FC<{
     >
       <div
         className={
-          "flex items-start md:w-48 w-[43px] border-r border-[#828282] p-2.5"
+          "flex items-start md:w-48 w-[43px] border-r border-[#828282] p-1.5"
         }
       >
         <div className={"flex gap-2 items-center truncate"}>
           <button
-            className={"rounded"}
+            className={
+              "rounded border border-transparent hover:border-[#828282] hover:opacity-80"
+            }
             onClick={onClick}
             style={{ backgroundColor: `${calendar.backgroundColor}30` }}
           >
@@ -166,78 +168,75 @@ const Calendar: FC<{
                 onMouseLeave={onMouseLeave}
                 style={today === leftDay ? { backgroundColor: "#E4DEFD" } : {}}
               >
-                {calendar.selected && (
-                  <div
-                    onMouseEnter={() =>
-                      onEventEnter(isEventStart || isEventEnd || isEvent)
-                    }
-                    onMouseLeave={onEventLeave}
-                  >
-                    {isEventStart && !isEventEnd && (
+                <div
+                  onMouseEnter={() =>
+                    onEventEnter(isEventStart || isEventEnd || isEvent)
+                  }
+                  onMouseLeave={onEventLeave}
+                >
+                  {isEventStart && !isEventEnd && (
+                    <div
+                      className={`absolute top-1 left-1 bottom-1 right-0 rounded-l-lg`}
+                      style={{
+                        backgroundColor: isEventStart.backgroundColor,
+                      }}
+                    >
                       <div
-                        className={`absolute top-1 left-1 bottom-1 right-0 rounded-l-lg`}
                         style={{
-                          backgroundColor: isEventStart.backgroundColor,
+                          writingMode: "vertical-rl",
+                          transform: "rotate(180deg)",
+                          wordBreak: "break-word",
+                          whiteSpace: "normal",
+                          paddingTop: 6,
+                          height: 119,
+                          zIndex: 1,
+                          overflow: "hidden",
+                          position: "relative",
+                          color: "#fff",
+                          fontSize: 12,
                         }}
                       >
-                        <div
-                          style={{
-                            writingMode: "vertical-rl",
-                            transform: "rotate(180deg)",
-                            wordBreak: "break-word",
-                            whiteSpace: "normal",
-                            paddingTop: 6,
-                            height: 119,
-                            zIndex: 1,
-                            overflow: "hidden",
-                            position: "relative",
-                            color: "#fff",
-                            fontSize: 12,
-                          }}
-                        >
-                          {isEventStart.summary}
-                        </div>
+                        {calendar.selected && isEventStart.summary}
                       </div>
-                    )}
-                    {isEventEnd && !isEventStart && (
+                    </div>
+                  )}
+                  {isEventEnd && !isEventStart && (
+                    <div
+                      className={`absolute top-1 left-0 bottom-1 right-1 rounded-r-lg`}
+                      style={{ backgroundColor: isEventEnd.backgroundColor }}
+                    />
+                  )}
+                  {isEventEnd && isEventStart && (
+                    <div
+                      className={`absolute top-1 left-1 bottom-1 right-1 rounded`}
+                      style={{ backgroundColor: isEventEnd.backgroundColor }}
+                    >
                       <div
-                        className={`absolute top-1 left-0 bottom-1 right-1 rounded-r-lg`}
-                        style={{ backgroundColor: isEventEnd.backgroundColor }}
-                      />
-                    )}
-                    {isEventEnd && isEventStart && (
-                      <div
-                        className={`absolute top-1 left-1 bottom-1 right-1 rounded`}
-                        style={{ backgroundColor: isEventEnd.backgroundColor }}
+                        style={{
+                          writingMode: "vertical-rl",
+                          transform: "rotate(180deg)",
+                          wordBreak: "break-word",
+                          whiteSpace: "normal",
+                          paddingTop: 6,
+                          height: 119,
+                          zIndex: 1,
+                          overflow: "hidden",
+                          position: "relative",
+                          color: "#fff",
+                          fontSize: 12,
+                        }}
                       >
-                        <div
-                          style={{
-                            writingMode: "vertical-rl",
-                            transform: "rotate(180deg)",
-                            wordBreak: "break-word",
-                            whiteSpace: "normal",
-                            paddingTop: 6,
-                            height: 119,
-                            zIndex: 1,
-                            overflow: "hidden",
-                            position: "relative",
-                            color: "#fff",
-                            fontSize: 12,
-                          }}
-                        >
-                          {isEventStart.summary}
-                        </div>
+                        {calendar.selected && isEventStart.summary}
                       </div>
-                    )}
-                    {!isEventEnd && !isEventStart && isEvent && (
-                      <div
-                        className={`absolute top-1 left-0 bottom-1 right-0`}
-                        style={{ backgroundColor: isEvent.backgroundColor }}
-                      />
-                    )}
-                  </div>
-                )}
-
+                    </div>
+                  )}
+                  {!isEventEnd && !isEventStart && isEvent && (
+                    <div
+                      className={`absolute top-1 left-0 bottom-1 right-0`}
+                      style={{ backgroundColor: isEvent.backgroundColor }}
+                    />
+                  )}
+                </div>
                 <div
                   className={`flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${!isDragging && index === activeIndex ? "bg-[#F9EFFF]" : ""}`}
                 />
@@ -273,78 +272,75 @@ const Calendar: FC<{
                 onMouseLeave={onMouseLeave}
                 style={today === rightDay ? { backgroundColor: "#E4DEFD" } : {}}
               >
-                {calendar.selected && (
-                  <div
-                    onMouseEnter={() =>
-                      onEventEnter(isEventStart || isEventEnd || isEvent)
-                    }
-                    onMouseLeave={onEventLeave}
-                  >
-                    {isEventStart && !isEventEnd && (
+                <div
+                  onMouseEnter={() =>
+                    onEventEnter(isEventStart || isEventEnd || isEvent)
+                  }
+                  onMouseLeave={onEventLeave}
+                >
+                  {isEventStart && !isEventEnd && (
+                    <div
+                      className={`absolute top-1 left-1 bottom-1 right-0 rounded-l-lg`}
+                      style={{
+                        backgroundColor: isEventStart.backgroundColor,
+                      }}
+                    >
                       <div
-                        className={`absolute top-1 left-1 bottom-1 right-0 rounded-l-lg`}
                         style={{
-                          backgroundColor: isEventStart.backgroundColor,
+                          writingMode: "vertical-rl",
+                          transform: "rotate(180deg)",
+                          wordBreak: "break-word",
+                          whiteSpace: "normal",
+                          paddingTop: 6,
+                          height: 119,
+                          zIndex: 1,
+                          overflow: "hidden",
+                          position: "relative",
+                          color: "#fff",
+                          fontSize: 12,
                         }}
                       >
-                        <div
-                          style={{
-                            writingMode: "vertical-rl",
-                            transform: "rotate(180deg)",
-                            wordBreak: "break-word",
-                            whiteSpace: "normal",
-                            paddingTop: 6,
-                            height: 119,
-                            zIndex: 1,
-                            overflow: "hidden",
-                            position: "relative",
-                            color: "#fff",
-                            fontSize: 12,
-                          }}
-                        >
-                          {isEventStart.summary}
-                        </div>
+                        {calendar.selected && isEventStart.summary}
                       </div>
-                    )}
-                    {isEventEnd && !isEventStart && (
+                    </div>
+                  )}
+                  {isEventEnd && !isEventStart && (
+                    <div
+                      className={`absolute top-1 left-0 bottom-1 right-1 rounded-r-lg`}
+                      style={{ backgroundColor: isEventEnd.backgroundColor }}
+                    />
+                  )}
+                  {isEventEnd && isEventStart && (
+                    <div
+                      className={`absolute top-1 left-1 bottom-1 right-1 rounded`}
+                      style={{ backgroundColor: isEventEnd.backgroundColor }}
+                    >
                       <div
-                        className={`absolute top-1 left-0 bottom-1 right-1 rounded-r-lg`}
-                        style={{ backgroundColor: isEventEnd.backgroundColor }}
-                      />
-                    )}
-                    {isEventEnd && isEventStart && (
-                      <div
-                        className={`absolute top-1 left-1 bottom-1 right-1 rounded`}
-                        style={{ backgroundColor: isEventEnd.backgroundColor }}
+                        style={{
+                          writingMode: "vertical-rl",
+                          transform: "rotate(180deg)",
+                          wordBreak: "break-word",
+                          whiteSpace: "normal",
+                          paddingTop: 6,
+                          height: 119,
+                          zIndex: 1,
+                          overflow: "hidden",
+                          position: "relative",
+                          color: "#fff",
+                          fontSize: 12,
+                        }}
                       >
-                        <div
-                          style={{
-                            writingMode: "vertical-rl",
-                            transform: "rotate(180deg)",
-                            wordBreak: "break-word",
-                            whiteSpace: "normal",
-                            paddingTop: 6,
-                            height: 119,
-                            zIndex: 1,
-                            overflow: "hidden",
-                            position: "relative",
-                            color: "#fff",
-                            fontSize: 12,
-                          }}
-                        >
-                          {isEventStart.summary}
-                        </div>
+                        {calendar.selected && isEventStart.summary}
                       </div>
-                    )}
-                    {!isEventEnd && !isEventStart && isEvent && (
-                      <div
-                        className={`absolute top-1 left-0 bottom-1 right-0`}
-                        style={{ backgroundColor: isEvent.backgroundColor }}
-                      />
-                    )}
-                  </div>
-                )}
-
+                    </div>
+                  )}
+                  {!isEventEnd && !isEventStart && isEvent && (
+                    <div
+                      className={`absolute top-1 left-0 bottom-1 right-0`}
+                      style={{ backgroundColor: isEvent.backgroundColor }}
+                    />
+                  )}
+                </div>
                 <div
                   className={`flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${!isDragging && index + 24 === activeIndex ? "bg-[#F9EFFF]" : ""}`}
                 />
@@ -388,78 +384,75 @@ const Calendar: FC<{
                       : {}
                 }
               >
-                {calendar.selected && (
-                  <div
-                    onMouseEnter={() =>
-                      onEventEnter(isEventStart || isEventEnd || isEvent)
-                    }
-                    onMouseLeave={onEventLeave}
-                  >
-                    {isEventStart && !isEventEnd && (
+                <div
+                  onMouseEnter={() =>
+                    onEventEnter(isEventStart || isEventEnd || isEvent)
+                  }
+                  onMouseLeave={onEventLeave}
+                >
+                  {isEventStart && !isEventEnd && (
+                    <div
+                      className={`absolute top-1 left-1 bottom-1 right-0 rounded-l-lg`}
+                      style={{
+                        backgroundColor: isEventStart.backgroundColor,
+                      }}
+                    >
                       <div
-                        className={`absolute top-1 left-1 bottom-1 right-0 rounded-l-lg`}
                         style={{
-                          backgroundColor: isEventStart.backgroundColor,
+                          writingMode: "vertical-rl",
+                          transform: "rotate(180deg)",
+                          wordBreak: "break-word",
+                          whiteSpace: "normal",
+                          paddingTop: 6,
+                          height: 119,
+                          zIndex: 1,
+                          overflow: "hidden",
+                          position: "relative",
+                          color: "#fff",
+                          fontSize: 12,
                         }}
                       >
-                        <div
-                          style={{
-                            writingMode: "vertical-rl",
-                            transform: "rotate(180deg)",
-                            wordBreak: "break-word",
-                            whiteSpace: "normal",
-                            paddingTop: 6,
-                            height: 119,
-                            zIndex: 1,
-                            overflow: "hidden",
-                            position: "relative",
-                            color: "#fff",
-                            fontSize: 12,
-                          }}
-                        >
-                          {isEventStart.summary}
-                        </div>
+                        {calendar.selected && isEventStart.summary}
                       </div>
-                    )}
-                    {isEventEnd && !isEventStart && (
+                    </div>
+                  )}
+                  {isEventEnd && !isEventStart && (
+                    <div
+                      className={`absolute top-1 left-0 bottom-1 right-1 rounded-r-lg`}
+                      style={{ backgroundColor: isEventEnd.backgroundColor }}
+                    />
+                  )}
+                  {isEventEnd && isEventStart && (
+                    <div
+                      className={`absolute top-1 left-1 bottom-1 right-1 rounded`}
+                      style={{ backgroundColor: isEventEnd.backgroundColor }}
+                    >
                       <div
-                        className={`absolute top-1 left-0 bottom-1 right-1 rounded-r-lg`}
-                        style={{ backgroundColor: isEventEnd.backgroundColor }}
-                      />
-                    )}
-                    {isEventEnd && isEventStart && (
-                      <div
-                        className={`absolute top-1 left-1 bottom-1 right-1 rounded`}
-                        style={{ backgroundColor: isEventEnd.backgroundColor }}
+                        style={{
+                          writingMode: "vertical-rl",
+                          transform: "rotate(180deg)",
+                          wordBreak: "break-word",
+                          whiteSpace: "normal",
+                          paddingTop: 6,
+                          height: 119,
+                          zIndex: 1,
+                          overflow: "hidden",
+                          position: "relative",
+                          color: "#fff",
+                          fontSize: 12,
+                        }}
                       >
-                        <div
-                          style={{
-                            writingMode: "vertical-rl",
-                            transform: "rotate(180deg)",
-                            wordBreak: "break-word",
-                            whiteSpace: "normal",
-                            paddingTop: 6,
-                            height: 119,
-                            zIndex: 1,
-                            overflow: "hidden",
-                            position: "relative",
-                            color: "#fff",
-                            fontSize: 12,
-                          }}
-                        >
-                          {isEventStart.summary}
-                        </div>
+                        {calendar.selected && isEventStart.summary}
                       </div>
-                    )}
-                    {!isEventEnd && !isEventStart && isEvent && (
-                      <div
-                        className={`absolute top-1 left-0 bottom-1 right-0`}
-                        style={{ backgroundColor: isEvent.backgroundColor }}
-                      />
-                    )}
-                  </div>
-                )}
-
+                    </div>
+                  )}
+                  {!isEventEnd && !isEventStart && isEvent && (
+                    <div
+                      className={`absolute top-1 left-0 bottom-1 right-0`}
+                      style={{ backgroundColor: isEvent.backgroundColor }}
+                    />
+                  )}
+                </div>
                 <div
                   className={`flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${!isDragging && index === activeIndex ? "bg-[#F9EFFF]" : ""}`}
                 />
@@ -503,77 +496,75 @@ const Calendar: FC<{
                 onMouseEnter={() => onMouseEnter(index)}
                 onMouseLeave={onMouseLeave}
               >
-                {calendar.selected && (
-                  <div
-                    onMouseEnter={() =>
-                      onEventEnter(isEventStart || isEventEnd || isEvent)
-                    }
-                    onMouseLeave={onEventLeave}
-                  >
-                    {isEventStart && !isEventEnd && (
+                <div
+                  onMouseEnter={() =>
+                    onEventEnter(isEventStart || isEventEnd || isEvent)
+                  }
+                  onMouseLeave={onEventLeave}
+                >
+                  {isEventStart && !isEventEnd && (
+                    <div
+                      className={`absolute top-1 left-1 bottom-1 right-0 rounded-l-lg`}
+                      style={{
+                        backgroundColor: isEventStart.backgroundColor,
+                      }}
+                    >
                       <div
-                        className={`absolute top-1 left-1 bottom-1 right-0 rounded-l-lg`}
                         style={{
-                          backgroundColor: isEventStart.backgroundColor,
+                          writingMode: "vertical-rl",
+                          transform: "rotate(180deg)",
+                          wordBreak: "break-word",
+                          whiteSpace: "normal",
+                          paddingTop: 6,
+                          height: 119,
+                          zIndex: 1,
+                          overflow: "hidden",
+                          position: "relative",
+                          color: "#fff",
+                          fontSize: 12,
                         }}
                       >
-                        <div
-                          style={{
-                            writingMode: "vertical-rl",
-                            transform: "rotate(180deg)",
-                            wordBreak: "break-word",
-                            whiteSpace: "normal",
-                            paddingTop: 6,
-                            height: 119,
-                            zIndex: 1,
-                            overflow: "hidden",
-                            position: "relative",
-                            color: "#fff",
-                            fontSize: 12,
-                          }}
-                        >
-                          {isEventStart.summary}
-                        </div>
+                        {calendar.selected && isEventStart.summary}
                       </div>
-                    )}
-                    {isEventEnd && !isEventStart && (
+                    </div>
+                  )}
+                  {isEventEnd && !isEventStart && (
+                    <div
+                      className={`absolute top-1 left-0 bottom-1 right-1 rounded-r-lg`}
+                      style={{ backgroundColor: isEventEnd.backgroundColor }}
+                    />
+                  )}
+                  {isEventEnd && isEventStart && (
+                    <div
+                      className={`absolute top-1 left-1 bottom-1 right-1 rounded`}
+                      style={{ backgroundColor: isEventEnd.backgroundColor }}
+                    >
                       <div
-                        className={`absolute top-1 left-0 bottom-1 right-1 rounded-r-lg`}
-                        style={{ backgroundColor: isEventEnd.backgroundColor }}
-                      />
-                    )}
-                    {isEventEnd && isEventStart && (
-                      <div
-                        className={`absolute top-1 left-1 bottom-1 right-1 rounded`}
-                        style={{ backgroundColor: isEventEnd.backgroundColor }}
+                        style={{
+                          writingMode: "vertical-rl",
+                          transform: "rotate(180deg)",
+                          wordBreak: "break-word",
+                          whiteSpace: "normal",
+                          paddingTop: 6,
+                          height: 119,
+                          zIndex: 1,
+                          overflow: "hidden",
+                          position: "relative",
+                          color: "#fff",
+                          fontSize: 12,
+                        }}
                       >
-                        <div
-                          style={{
-                            writingMode: "vertical-rl",
-                            transform: "rotate(180deg)",
-                            wordBreak: "break-word",
-                            whiteSpace: "normal",
-                            paddingTop: 6,
-                            height: 119,
-                            zIndex: 1,
-                            overflow: "hidden",
-                            position: "relative",
-                            color: "#fff",
-                            fontSize: 12,
-                          }}
-                        >
-                          {isEventStart.summary}
-                        </div>
+                        {calendar.selected && isEventStart.summary}
                       </div>
-                    )}
-                    {!isEventEnd && !isEventStart && isEvent && (
-                      <div
-                        className={`absolute top-1 left-0 bottom-1 right-0`}
-                        style={{ backgroundColor: isEvent.backgroundColor }}
-                      />
-                    )}
-                  </div>
-                )}
+                    </div>
+                  )}
+                  {!isEventEnd && !isEventStart && isEvent && (
+                    <div
+                      className={`absolute top-1 left-0 bottom-1 right-0`}
+                      style={{ backgroundColor: isEvent.backgroundColor }}
+                    />
+                  )}
+                </div>
                 <div
                   className={`flex flex-1 items-center justify-center text-[8px] border-[#828282] border-r ${!isDragging && index === activeIndex ? "bg-[#F9EFFF]" : ""}`}
                 />
